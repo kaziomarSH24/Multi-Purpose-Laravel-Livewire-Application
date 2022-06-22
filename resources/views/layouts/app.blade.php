@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('backend')}}/dist/css/adminlte.min.css">
+  @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -51,5 +52,11 @@
 <script src="{{asset('backend')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('backend')}}/dist/js/adminlte.min.js"></script>
+ <script>
+  window.addEventListener('show-form', event => {
+    $('#addUsers').modal('show');
+  })
+ </script>
+@livewireScripts
 </body>
 </html>
