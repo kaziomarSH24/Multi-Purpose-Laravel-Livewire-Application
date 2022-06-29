@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('backend')}}/dist/css/adminlte.min.css">
+  <!-- Toastr Plugin -->
+  <link rel="stylesheet" href="{{asset('backend')}}/plugins/toastr/toastr.min.css">
   @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini">
@@ -52,15 +54,28 @@
 <script src="{{asset('backend')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('backend')}}/dist/js/adminlte.min.js"></script>
- <script>
+<!-- Toastr JS -->
+<script src="{{asset('backend')}}/plugins/toastr/toastr.min.js"></script>
+
+  <script>
   window.addEventListener('show-form', event => {
     $('#addUsers').modal('show');
   })
-
-  window.addEventListener('hide-form', event => {
-    $('#addUsers').modal('hide');
-  })
  </script>
+
+  <script>
+    $(document).ready(function () {
+      toastr.options = {
+          "progressBar": true,
+          "positionClass": "toast-bottom-right",
+          }
+          window.addEventListener('hide-form', event => {
+            $('#addUsers').modal('hide');
+            toastr.success(event.detail.message, 'Success!');
+          })
+    });
+  </script>
+
 @livewireScripts
 </body>
 </html>
