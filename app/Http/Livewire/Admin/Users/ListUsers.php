@@ -18,8 +18,11 @@ class ListUsers extends Component
 
     public $showEditModal = false; // For Edit data with same modal
 
+    public $userIdBeingRemoved = null; //for delete user
+
     public function addNew()
     {
+        $this->state = []; // Use for form reset
         $this->showEditModal = false;  // For Edit data with same modal
         $this->dispatchBrowserEvent('show-form'); // Show Modal form
     }
@@ -71,6 +74,20 @@ class ListUsers extends Component
         // session()->flash('message','User updated successfully.'); //for bootstrap alert
 
         $this->dispatchBrowserEvent('hide-form',['message' => 'User updated successfully!']); // "Message" argument for toastr notifacation alert
+    }
+
+    public function confirmUserRemoval($userID)
+    {
+        $this->userIdBeingRemoved = $userID;
+
+        $this->dispatchBrowserEvent('show-delete-modal');
+    }
+
+    public function deleteUser()
+    {
+        $user = User::findOrFail($this->userIdBeingRemoved)->delete();
+
+        $this->dispatchBrowserEvent('hide-delete-modal',['message' => 'User deleted successfully']);
     }
 
     public function render()
