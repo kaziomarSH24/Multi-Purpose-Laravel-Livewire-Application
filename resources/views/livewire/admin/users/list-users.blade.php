@@ -1,19 +1,17 @@
 <div>
-   <!-- Content Header (Page header) -->
    <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1 class="m-0">Users</h1>
-        </div><!-- /.col -->
+        </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
             <li class="breadcrumb-item active">Users</li>
           </ol>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-              <!-- /.row -->
+        </div>
+      </div>
               <div class="row mt-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-end">
@@ -35,7 +33,7 @@
                         </div>
                       </div>
                     </div>
-                    <!-- /.card-header -->
+                    
                     <div class="card-body table-responsive p-0">
                       <table class="table table-hover text-nowrap">
                         <thead>
@@ -47,67 +45,81 @@
                           </tr>
                         </thead>
                         <tbody>
+                          @foreach ($users as $user)
                           <tr>
-                            <td>183</td>
-                            <td>John Doe</td>
-                            <td>john12@gmail.com</td>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->email}}</td>
                             <td>
                                 <a href=""><i class="fa fa-edit mr-2"></i></a>
                                 <a href=""><i class="fa fa-trash text-danger"></i></a>
                             </td>
                           </tr>
+                          @endforeach
                         </tbody>
                       </table>
                     </div>
-                    <!-- /.card-body -->
+                   
                   </div>
-                  <!-- /.card -->
+                  
                 </div>
               </div>
-              <!-- /.row -->
-    </div><!-- /.container-fluid -->
+              
+    </div> 
   </div>
-  <!-- /.content-header -->
-</div>
-
-{{-- modal --}}
-<div class="modal fade" id="addUsers" style="display: none;" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Add New User</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-         <!-- form start -->
-         <form>
+  <div class="modal fade" id="addUsers" aria-hidden="true" wire:ignore.self> {{-- "wire:ignore.self" used for unwanted modal problem --}}
+    <div class="modal-dialog modal-lg">
+      <form  wire:submit.prevent="createUser">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add New User</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
             <div class="form-group">
               <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Enter full name">
+              <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Enter full name" wire:model.defer="state.name">
+              @error('name')
+              <div class="invalid-feedback">
+                {{$message}}
+              </div>
+              @enderror
             </div>
             <div class="form-group">
               <label for="email">Email address</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter email">
+              <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter email" wire:model.defer="state.email">
+              @error('email')
+              <div class="invalid-feedback">
+                {{$message}}
+              </div>
+              @enderror
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Password">
+              <input type="password" class="form-control  @error('password') is-invalid @enderror" id="password" placeholder="Password" wire:model.defer="state.password">
+              @error('password')
+              <div class="invalid-feedback">
+                {{$message}}
+              </div>
+              @enderror
             </div>
             <div class="form-group">
               <label for="passwordConfirmation">Confirm Password</label>
-              <input type="password" class="form-control" id="passwordConfirmation" placeholder=" Confirm Password">
+              <input type="password" class="form-control" id="passwordConfirmation" placeholder="Confirm Password" wire:model.defer="state.password_confirmation">
             </div>
-        </form>
-         <!-- form end -->
-      </div>
-      <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </form>
     </div>
-    <!-- /.modal-content -->
+  
   </div>
-  <!-- /.modal-dialog -->
 </div>
+
+
+

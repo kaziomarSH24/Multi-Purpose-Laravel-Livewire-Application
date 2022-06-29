@@ -44,7 +44,7 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-calendar-check"></i>
               <p>
                 Appointments
               </p>
@@ -52,17 +52,16 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('admin.users')}}" class="nav-link">
+            <a href="{{route('admin.users')}}" class="nav-link {{request()->is('admin/users') ? 'active' : ''}}">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
               </p>
             </a>
           </li>
-
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-wrench"></i>
               <p>
                 Settings
               </p>
@@ -71,7 +70,7 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 Logout
               </p>

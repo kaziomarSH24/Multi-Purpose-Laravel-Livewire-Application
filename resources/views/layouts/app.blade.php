@@ -16,37 +16,37 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
-  <!-- Navbar -->
+  {{-- <!-- Navbar --> --}}
   @include('layouts.partials.navbar')
-  <!-- /.navbar -->
+  {{-- <!-- /.navbar --> --}}
 
-  <!-- Main Sidebar Container -->
+  {{-- <!-- Main Sidebar Container --> --}}
   @include('layouts.partials.aside')
 
-  <!-- Content Wrapper. Contains page content -->
+  {{-- <!-- Content Wrapper. Contains page content --> --}}
   <div class="content-wrapper">
    {{ $slot }}
   </div>
-  <!-- /.content-wrapper -->
 
-  <!-- Control Sidebar -->
+
+
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
+    {{-- <!-- Control sidebar content goes here --> --}}
     <div class="p-3">
       <h5>Title</h5>
-      <p>Sidebar content</p>
+      <p>Sidebar content</p> 
     </div>
   </aside>
-  <!-- /.control-sidebar -->
+  {{-- <!-- /.control-sidebar --> --}}
 
-  <!-- Main Footer -->
+  {{-- <!-- Main Footer --> --}}
   @include('layouts.partials.footer')
 </div>
-<!-- ./wrapper -->
+{{-- <!-- ./wrapper --> --}}
 
-<!-- REQUIRED SCRIPTS -->
+{{-- <!-- REQUIRED SCRIPTS --> --}}
 
-<!-- jQuery -->
+{{-- <!-- jQuery --> --}}
 <script src="{{asset('backend')}}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('backend')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -55,6 +55,10 @@
  <script>
   window.addEventListener('show-form', event => {
     $('#addUsers').modal('show');
+  })
+
+  window.addEventListener('hide-form', event => {
+    $('#addUsers').modal('hide');
   })
  </script>
 @livewireScripts
