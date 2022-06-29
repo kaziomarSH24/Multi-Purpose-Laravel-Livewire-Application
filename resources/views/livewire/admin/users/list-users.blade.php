@@ -13,14 +13,14 @@
         </div>
       </div>
 
-      @if (session()->has('message'))
+      {{-- @if (session()->has('message'))
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong><i class="fa fa-check-circle mr1"></i> Success!</strong> {{session('message')}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      @endif
+      @endif --}}
               <div class="row mt-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-end">
@@ -60,7 +60,7 @@
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>
-                                <a href=""><i class="fa fa-edit mr-2"></i></a>
+                                <a href="" wire:click.prevent="edit({{$user}})"><i class="fa fa-edit mr-2"></i></a>
                                 <a href=""><i class="fa fa-trash text-danger"></i></a>
                             </td>
                           </tr>
@@ -78,10 +78,17 @@
   </div>
   <div class="modal fade" id="addUsers" aria-hidden="true" wire:ignore.self> {{-- "wire:ignore.self" used for unwanted modal problem --}}
     <div class="modal-dialog modal-lg">
-      <form  wire:submit.prevent="createUser">
+      <form autocomplete="off"  wire:submit.prevent="{{$showEditModal ? 'updateUser' : 'createUser'}}">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Add New User</h4>
+            <h4 class="modal-title">
+              @if ($showEditModal) <!-- This condition form Update Data By same modal form-->
+              <span>Edit User</span>
+              @else
+              <span>Add New User</span>
+              @endif
+             
+            </h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -119,9 +126,15 @@
               <input type="password" class="form-control" id="passwordConfirmation" placeholder="Confirm Password" wire:model.defer="state.password_confirmation">
             </div>
           </div>
-          <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+          <div class="modal-footer ">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i>Close</button>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i>
+              @if ($showEditModal) <!-- This condition form Update Data By same modal form-->
+              <span>Save Changes</span>
+              @else
+              <span>Save</span>
+              @endif
+            </button>
           </div>
         </div>
       </form>
