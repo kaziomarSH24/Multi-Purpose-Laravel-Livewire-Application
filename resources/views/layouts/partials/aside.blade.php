@@ -43,8 +43,8 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-calendar-check"></i>
+            <a href="{{route('admin.appointment')}}" class="nav-link {{request()->is('admin/appointment') ? 'active' : ''}}">
+              <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
                 Appointments
               </p>
