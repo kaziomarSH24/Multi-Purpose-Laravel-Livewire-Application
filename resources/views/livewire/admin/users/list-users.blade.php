@@ -68,7 +68,9 @@
                         </tbody>
                       </table>
                     </div>
-                   
+                   <div class="card-footer d-flex justify-content-end">
+                    {{$users->links()}}
+                   </div>
                   </div>
                   
                 </div>
@@ -79,7 +81,7 @@
 
 
   <!-- Modal --> 
-  <div class="modal fade" id="addUsers" aria-hidden="true" wire:ignore.self> {{-- "wire:ignore.self" used for unwanted modal problem --}}
+  <div class="modal fade" id="addUsers" aria-hidden="true" wire:ignore.self> <!-- "wire:ignore.self" used for unwanted modal problem -->
     <div class="modal-dialog modal-lg">
       <form autocomplete="off"  wire:submit.prevent="{{$showEditModal ? 'updateUser' : 'createUser'}}">
         <div class="modal-content">
