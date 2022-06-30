@@ -20,7 +20,7 @@ class CreateAppointmentsTable extends Migration
             $table-> date('date');
             $table->time('time');
             $table->string('status');
-            $table->text('node')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
 
             // $table->foreign('client_id')->references('id')->on('clients');

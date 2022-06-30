@@ -16,7 +16,9 @@
                <div class="row mt-4">
                  <div class="col-12">
                      <div class="d-flex justify-content-end">
-                       <button wire:click.prevent="addNew" type="button" class="btn mb-2 bg-gradient-primary"><i class="fa fa-plus-circle mr-1"></i>Add New User</button>
+                        <a href="{{ route('admin.appointments.create') }}">
+                            <button type="button" class="btn mb-2 bg-gradient-primary"><i class="fa fa-plus-circle mr-1"></i>Add New Appointment</button>
+                        </a>
                      </div>
                    <div class="card">
                      <div class="card-header">

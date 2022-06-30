@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="{{asset('backend')}}/dist/css/adminlte.min.css">
   <!-- Toastr Plugin -->
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/toastr/toastr.min.css">
+  <!-- Tempusdominus Bootstrap 4 / datetimepicker css -->
+  <link rel="stylesheet" href="{{asset('backend')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini">
@@ -56,6 +58,10 @@
 <script src="{{asset('backend')}}/dist/js/adminlte.min.js"></script>
 <!-- Toastr JS -->
 <script src="{{asset('backend')}}/plugins/toastr/toastr.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 / datetimepicker css -->
+<script src="https://unpkg.com/moment"></script>
+<script src="{{asset('backend')}}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
 
   <script>
   window.addEventListener('show-form', event => {
@@ -84,6 +90,9 @@
           })
     });
   </script>
+
+
+@stack('js')
 
 @livewireScripts
 </body>
