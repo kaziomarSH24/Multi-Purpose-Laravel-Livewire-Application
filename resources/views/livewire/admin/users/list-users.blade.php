@@ -50,6 +50,8 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Registerd Time</th>
+                            <th>Registerd Date</th>
                             <th>Options</th>
                           </tr>
                         </thead>
@@ -59,6 +61,8 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
+                            <td>{{$user->created_at->toFormattedTime()}}</td> {{-- function created on AppServiceProvider.php --}}
+                            <td>{{$user->created_at->toFormattedDate()}}</td> {{-- function created on AppServiceProvider.php --}}
                             <td>
                                 <a href="" wire:click.prevent="edit({{$user}})"><i class="fa fa-edit mr-2"></i></a>
                                 <a href="" wire:click.prevent="confirmUserRemoval({{$user->id}})"><i class="fa fa-trash text-danger"></i></a>

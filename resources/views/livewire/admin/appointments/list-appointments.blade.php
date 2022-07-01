@@ -50,18 +50,25 @@
                            </tr>
                          </thead>
                          <tbody>
-                           
+                            @php
+                                 $i = 1;
+                             @endphp
+                          @foreach ($appointments as $appointment)
+                                                         
                            <tr>
-                             <td>1</td>
-                             <td>Client Name</td>
-                             <td>Date</td>
-                             <td>Time</td>
-                             <td>Status</td>
-                             <td>
-                                 <a href=""><i class="fa fa-edit mr-2"></i></a>
-                                 <a href=""><i class="fa fa-trash text-danger"></i></a>
-                             </td>
-                           </tr>
+                            <td>{{$i++}}</td>
+                            <td>{{$appointment->client->name}}</td>
+                            <td>{{$appointment->date->toFormattedDate()}}</td> {{-- function created on AppServiceProvider.php --}}
+                            <td>{{$appointment->time->toFormattedTime()}}</td>  {{-- function created on AppServiceProvider.php --}}
+                            <td>
+                              <span class="badge badge-{{$appointment->status_badge}}">{{$appointment->status}}</span>  {{-- 'status_badge' is created on Appointment.php Model file--}}
+                            </td>
+                            <td>
+                                <a href=""><i class="fa fa-edit mr-2"></i></a>
+                                <a href=""><i class="fa fa-trash text-danger"></i></a>
+                            </td>
+                          </tr>
+                          @endforeach
                            
                          </tbody>
                        </table>
