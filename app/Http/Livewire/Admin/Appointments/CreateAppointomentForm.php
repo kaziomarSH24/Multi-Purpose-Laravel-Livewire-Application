@@ -4,16 +4,32 @@ namespace App\Http\Livewire\Admin\Appointments;
 
 use App\Models\Appointment;
 use App\Models\Client;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 class CreateAppointomentForm extends Component
 {
-    public $state = [];
+    public $state = [
+        'status' => 'SCHEDULED'
+    ];
 
     public function createAppointment()
     {
+
+        Validator::make($this->state,[
+
+            'client_id' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'note' => 'nullable',
+            'status' => 'required|in:SCHEDULED,CLOSED',
+        ],
+        [
+            'client_id.required' => 'This client field is required',
+            'date.required' => 'This appointment date field is required',
+            'time.required' => 'This appointment time field is required',
+        ])->validate();
         // dd($this->state);
-        $this->state['status'] = 'Open';
         // Date and Time $casts in the App/Models/Appointment for change there type
         Appointment::create($this->state);
 
