@@ -21,9 +21,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="#" wire:submit.prevent="createAppointment">
+                        <form action="#" autocomplete="off" wire:submit.prevent="createAppointment">
                             <div class="card-header">
-                            <h3 class="card-title">Date picker</h3>
+                            <h3 class="card-title">Add new Appointment</h3>
                             </div>
                             <div class="card-body">
                             <!-- Date -->
@@ -40,8 +40,33 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6"></div>
                                 <div class="col-md-6">
+                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="appointmentDate">Appointment Date:</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <x-datepicker wire:model.defer="state.date" id="appointmentDate"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="appointmentTime">Appointment Time:</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="far fa-clock"></i></span>
+                                            </div>
+                                            <x-timepicker wire:model.defer="state.time" id="appointmentTime"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                {{-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Appointment Date:</label>
                                         <div class="input-group date" id="appointmentDate" data-target-input="nearest" wire:ignore>
@@ -64,7 +89,8 @@
                                         </div>
                                         <!-- /.input group -->
                                     </div>
-                                </div>
+                                </div> --}}
+                                
                                 <div class="col-sm-12">
                                     <!-- textarea -->
                                     <div class="form-group" wire:ignore>
@@ -90,22 +116,29 @@
 @push('js')
 <script>
     $(document).ready(function () {
-      let _date = $('#appointmentDate');
-      let _time = $('#appointmentTime');
-      _date.datetimepicker({
-        format: 'L'
-      });
-      _time.datetimepicker({
-        format: 'LT'
-      });
-      _date.on("change.datetimepicker",function(e){
-        let _appointmentDate = _date.children('input').val();
-       eval(@this).set('state.date',_appointmentDate);
-      });
-      _time.on('change.datetimepicker',function(e){
-        let _appointmentTime = _time.children('input').val();
-        eval(@this).set('state.time',_appointmentTime);
-      });
+        
+     //   <---- This is old mathod ---->
+
+    //   let _date = $('#appointmentDate');
+    //   let _time = $('#appointmentTime');
+    //   _date.datetimepicker({
+    //     format: 'L'
+    //   });
+    //   _time.datetimepicker({
+    //     format: 'LT'
+    //   });
+    //   _date.on("change.datetimepicker",function(e){
+    //     let _appointmentDate = _date.children('input').val();
+    //    eval(@this).set('state.date',_appointmentDate);
+    //   });
+    //   _time.on('change.datetimepicker',function(e){
+    //     let _appointmentTime = _time.children('input').val();
+    //     eval(@this).set('state.time',_appointmentTime);
+    //   });
+
+    //  <---- This is old mathod ---->
+
+
 
       ClassicEditor
           .create( document.querySelector( '#note' ) )
