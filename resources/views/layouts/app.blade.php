@@ -58,9 +58,14 @@
 <script src="{{asset('backend')}}/dist/js/adminlte.min.js"></script>
 <!-- Toastr JS -->
 <script src="{{asset('backend')}}/plugins/toastr/toastr.min.js"></script>
-<!-- Tempusdominus Bootstrap 4 / datetimepicker css -->
+<!-- Tempusdominus Bootstrap 4 / datetimepicker js -->
 <script src="https://unpkg.com/moment"></script>
 <script src="{{asset('backend')}}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- CKEditor cdn -->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+
+
 
 
   <script>
@@ -90,7 +95,6 @@
           })
     });
   </script>
-
 
 @stack('js')
 

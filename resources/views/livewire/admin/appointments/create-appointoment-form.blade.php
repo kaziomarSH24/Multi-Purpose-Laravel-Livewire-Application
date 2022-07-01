@@ -67,9 +67,9 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <!-- textarea -->
-                                    <div class="form-group">
+                                    <div class="form-group" wire:ignore>
                                     <label>Note:</label> (Optional)
-                                    <textarea class="form-control" rows="3" placeholder="Enter ..."  wire:model.defer="state.note"></textarea>
+                                    <textarea id="note" class="form-control" rows="3" placeholder="Enter ..."  wire:model.defer="state.note"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="card-footer">
                             <button type="button" class="btn btn-secondary"><i class="fa fa-times mr-1"></i>Close</button>
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i>Save</button>
+                            <button type="submit" id="submitAppointment" class="btn btn-primary"><i class="fa fa-save mr-1"></i>Save</button>
                         </div>
                         </form>
                     </div>
@@ -106,6 +106,22 @@
         let _appointmentTime = _time.children('input').val();
         eval(@this).set('state.time',_appointmentTime);
       });
+
+      ClassicEditor
+          .create( document.querySelector( '#note' ) )
+          .then( editor => {
+        //     editor.model.document.on('change:data', () => {    // =====This approach send lot of request in server. That's why we ignore it ======
+        //    @this.set('state.note', editor.getData());
+        //   }); 
+              
+            document.querySelector('#submitAppointment').addEventListener('click', () => {  //====== This  mathod Send only one request in server ====
+                @this.set('state.note', editor.getData());
+            })
+            
+          })
+          .catch( error => {
+                  console.error( error );
+          } );
     });
   </script>
 @endpush
