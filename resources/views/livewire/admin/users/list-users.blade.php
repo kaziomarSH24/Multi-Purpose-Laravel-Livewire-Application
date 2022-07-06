@@ -28,16 +28,18 @@
                     </div>
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Responsive Hover Table</h3>
+                      <h3 class="card-title">Users List</h3>
       
                       <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <div class="input-group input-group-sm position-relative" style="width: 150px;">
+                          <input type="text" name="table_search" class="form-control float-right border-none" placeholder="Search" wire:model="searchTerm">
       
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                              <i class="fas fa-search"></i>
-                            </button>
+                          <div wire:loading wire:target="searchTerm">
+                            <div class="input-group-append position-absolute" style="right: 5px; top:50%; transform:translateY(-50%); z-index:9999;">
+                              <div class="la-ball-clip-rotate la-dark la-sm">
+                                <div></div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -55,8 +57,8 @@
                             <th>Options</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          @foreach ($users as $user)
+                        <tbody wire:loading.class="text-muted">
+                          @forelse ($users as $user)
                           <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$user->name}}</td>
@@ -68,7 +70,14 @@
                                 <a href="" wire:click.prevent="confirmUserRemoval({{$user->id}})"><i class="fa fa-trash text-danger"></i></a>
                             </td>
                           </tr>
-                          @endforeach
+                          @empty
+                          <tr>
+                            <td colspan="6" class="text-center">
+                              <img src="{{asset('img')}}/icon/undraw_void_-3-ggu.svg" alt="No result found" width="100px">
+                              <h3 class="mt-2">No result found</h3>
+                            </td>
+                          </tr>
+                          @endforelse
                         </tbody>
                       </table>
                     </div>

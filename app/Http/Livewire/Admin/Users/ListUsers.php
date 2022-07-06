@@ -23,6 +23,8 @@ class ListUsers extends AdminComponent
 
     public $userIdBeingRemoved = null; //for delete user
 
+    public $searchTerm = null;
+
     public function addNew()
     {
         $this->state = []; // Use for form reset
@@ -95,7 +97,11 @@ class ListUsers extends AdminComponent
 
     public function render()
     {
-        $users = User::latest()->paginate(5);
+        // dd($this->searchTerm);
+        $users = User::query()
+                ->where('name','LIKE','%'.$this->searchTerm.'%')
+                ->orWhere('email','LIKE','%'.$this->searchTerm.'%')
+                ->latest()->paginate(5);
         return view('livewire.admin.users.list-users',compact('users'));
     }
 }

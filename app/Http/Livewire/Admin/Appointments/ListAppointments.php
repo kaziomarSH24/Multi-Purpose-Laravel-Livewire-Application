@@ -11,6 +11,8 @@ class ListAppointments extends AdminComponent
 
     public $appointmentIdBeingRemoved = null;
 
+    public $searchTerm = null;
+
     public function confirmAppointmentRemobval($appointmentId)
     {
         // dd($appointmentId);
@@ -30,6 +32,7 @@ class ListAppointments extends AdminComponent
 
     public function render()
     {
+        // dd($this->searchTerm);
         $appointments = Appointment::with('client')
                         ->latest()
                         ->paginate();
