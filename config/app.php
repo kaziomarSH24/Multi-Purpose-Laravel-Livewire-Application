@@ -68,7 +68,7 @@ return [
     */
 
     // 'timezone' => 'UTC',
-    'timezone' => 'Asia/Dhaka', //set time Zone in Bangladesh
+    'timezone' => 'Asia/Dhaka', //set time Zone in Bangladesh. Also add DB_TIMEZONE=+06:00 in .env file 
 
     /*
     |--------------------------------------------------------------------------

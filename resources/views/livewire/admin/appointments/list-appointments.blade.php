@@ -22,7 +22,7 @@
                      </div>
                    <div class="card">
                      <div class="card-header">
-                       <h3 class="card-title">Responsive Hover Table</h3>
+                       <h3 class="card-title">Appointment List</h3>
        
                        <div class="card-tools">
                          <div class="input-group input-group-sm" style="width: 150px;">
@@ -58,13 +58,13 @@
                            <tr>
                             <td>{{$i++}}</td>
                             <td>{{$appointment->client->name}}</td>
-                            <td>{{$appointment->date->toFormattedDate()}}</td> {{-- function created on AppServiceProvider.php --}}
-                            <td>{{$appointment->time->toFormattedTime()}}</td>  {{-- function created on AppServiceProvider.php --}}
+                            <td>{{$appointment->date}}</td> {{-- function created on AppServiceProvider.php --}}
+                            <td>{{$appointment->time}}</td>  {{-- function created on AppServiceProvider.php --}}
                             <td>
                               <span class="badge badge-{{$appointment->status_badge}}">{{$appointment->status}}</span>  {{-- 'status_badge' is created on Appointment.php Model file--}}
                             </td>
                             <td>
-                                <a href=""><i class="fa fa-edit mr-2"></i></a>
+                                <a href="{{route('admin.appointments.edit', $appointment)}}"><i class="fa fa-edit mr-2"></i></a>
                                 <a href=""><i class="fa fa-trash text-danger"></i></a>
                             </td>
                           </tr>
