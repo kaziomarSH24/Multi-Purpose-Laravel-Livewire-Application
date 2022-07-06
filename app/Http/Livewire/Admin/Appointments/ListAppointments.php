@@ -11,6 +11,11 @@ class ListAppointments extends AdminComponent
 
     public $appointmentIdBeingRemoved = null;
 
+    public $status = null;
+
+    protected $queryString = ['status']; //For automatic select the query string in link
+
+
     public function confirmAppointmentRemobval($appointmentId)
     {
         // dd($appointmentId);
@@ -28,11 +33,26 @@ class ListAppointments extends AdminComponent
         $this->dispatchBrowserEvent('deleted',['message' => 'Appointment deleted successfully']);
     }
 
+    public function filterAppointmentByStatus($status = null)
+    {
+        $this->resetPage(); //For fixing page reset date  not showing problem
+        $this->status = $status;
+        
+    }
+
     public function render()
     {
         $appointments = Appointment::with('client')
+                        ->when($this->status, function($query, $status){
+                            // dd($status);
+                            return $query->where('status', $status);
+                        })
                         ->latest()
-                        ->paginate();
-        return view('livewire.admin.appointments.list-appointments',compact('appointments'));
+                        ->paginate(3);
+
+        $appointmentsCount = Appointment::count();
+        $scheduledAppointmentsCount = Appointment::where('status', 'scheduled')->count();
+        $closedAppointmentsCount = Appointment::where('status', 'closed')->count();
+        return view('livewire.admin.appointments.list-appointments',compact('appointments','appointmentsCount','scheduledAppointmentsCount','closedAppointmentsCount'));
     }
 }
