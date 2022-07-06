@@ -65,7 +65,7 @@
                             </td>
                             <td>
                                 <a href="{{route('admin.appointments.edit', $appointment)}}"><i class="fa fa-edit mr-2"></i></a>
-                                <a href=""><i class="fa fa-trash text-danger"></i></a>
+                                <a href="" wire:click.prevent="confirmAppointmentRemobval({{$appointment->id}})"><i class="fa fa-trash text-danger"></i></a>
                             </td>
                           </tr>
                           @endforeach
@@ -83,27 +83,7 @@
                
      </div> 
    </div>
- 
- 
-   <!-- Confirmation Modal --> 
-   <div class="modal fade" id="confirmationModal" aria-hidden="true" wire:ignore.self> {{-- "wire:ignore.self" used for unwanted modal problem --}}
-     <div class="modal-dialog modal-sm" style="max-width: 500px">
-       <div class="modal-content">
-         <div class="modal-header">
-           <h5>Delete User</h5>
-         </div>
-         <div class="modal-body">
-           <h4>Are you sure you want to delete this user?</h4>
-         </div>
-         <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i>Close</button>
-           <button type="button" class="btn btn-danger" wire:click.prevent="deleteUser"><i class="fa fa-trash-alt mr-1"></i>Delete User</button>
-         </div>
-       </div>
-     </div>
-   
-   </div>
-   <!-- Confirmation Modal End--> 
+   <x-confirmation-alert/>
  </div>
  
  
