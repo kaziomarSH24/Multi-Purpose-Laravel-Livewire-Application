@@ -29,19 +29,8 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Users List</h3>
-      
                       <div class="card-tools">
-                        <div class="input-group input-group-sm position-relative" style="width: 150px;">
-                          <input type="text" name="table_search" class="form-control float-right border-none" placeholder="Search" wire:model="searchTerm">
-      
-                          <div wire:loading wire:target="searchTerm">
-                            <div class="input-group-append position-absolute" style="right: 5px; top:50%; transform:translateY(-50%); z-index:9999;">
-                              <div class="la-ball-clip-rotate la-dark la-sm">
-                                <div></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        <x-search-input wire:model="searchTerm" :target="'searchTerm'"/>
                       </div>
                     </div>
                     
