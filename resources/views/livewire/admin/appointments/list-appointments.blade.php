@@ -42,9 +42,9 @@
                      <div class="card-header">
                        <h3 class="card-title">Appointment List</h3>
        
-                       {{-- <div class="card-tools">
+                       <div class="card-tools">
                         <x-search-input wire:model="searchAppointment" :target="'searchAppointment'"/>
-                       </div> --}}
+                       </div>
                      </div>
                      
                      <div class="card-body table-responsive p-0">
@@ -63,7 +63,7 @@
                             @php
                                  $i = 1;
                              @endphp
-                          @foreach ($appointments as $appointment)
+                          @forelse ($appointments as $appointment)
                                                          
                            <tr>
                             <td>{{$i++}}</td>
@@ -78,7 +78,14 @@
                                 <a href="" wire:click.prevent="confirmAppointmentRemobval({{$appointment->id}})"><i class="fa fa-trash text-danger"></i></a>
                             </td>
                           </tr>
-                          @endforeach
+                          @empty
+                          <tr>
+                            <td colspan="6" class="text-center">
+                              <img src="{{asset('img')}}/icon/undraw_void_-3-ggu.svg" alt="No result found" width="100px">
+                              <h3 class="mt-2">No result found</h3>
+                            </td>
+                          </tr>
+                          @endforelse
                            
                          </tbody>
                        </table>
