@@ -39,6 +39,7 @@
                         <thead>
                           <tr>
                             <th>ID</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Registerd Time</th>
@@ -50,6 +51,10 @@
                           @forelse ($users as $user)
                           <tr>
                             <td>{{$loop->iteration}}</td>
+                            <td>
+                              {{-- <img src="{{ Storage::disk('avatars')->url($user->avatar) }}" alt="" style="width: 50px"> --}}
+                              <img src="{{ $user->avatar_url }}" alt="" style="width: 50px"> <!-- avatar_url() create in User.php model -->
+                            </td>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at->toFormattedTime()}}</td> {{-- function created on AppServiceProvider.php --}}
@@ -61,7 +66,7 @@
                           </tr>
                           @empty
                           <tr>
-                            <td colspan="6" class="text-center">
+                            <td colspan="7" class="text-center">
                               <img src="{{asset('img')}}/icon/undraw_void_-3-ggu.svg" alt="No result found" width="100px">
                               <h3 class="mt-2">No result found</h3>
                             </td>
@@ -131,6 +136,20 @@
             <div class="form-group">
               <label for="passwordConfirmation">Confirm Password</label>
               <input type="password" class="form-control" id="passwordConfirmation" placeholder="Confirm Password" wire:model.defer="state.password_confirmation">
+            </div>
+            <div class="form-group">
+              <label for="customFile">Profile Image</label> 
+
+              <div class="custom-file">
+                <input wire:model="photo" type="file" class="custom-file-input" id="customFile"> <!-- create this fild in database command is 'php artisan make:migration add_avatar_field_to_users_table' -->
+                <label class="custom-file-label" for="customFile">
+                  @if ($photo)
+                      {{$photo->getClientOriginalName()}}
+                  @else
+                      Choose image
+                  @endif
+                </label>
+              </div>
             </div>
           </div>
           <div class="modal-footer ">

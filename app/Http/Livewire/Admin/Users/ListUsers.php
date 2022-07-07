@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Admin\Users;
 use App\Http\Livewire\Admin\AdminComponent; //my own component
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
-
+use Livewire\WithFileUploads;
 
 class ListUsers extends AdminComponent
 {
@@ -14,7 +14,7 @@ class ListUsers extends AdminComponent
     // public $password;
     // public $password_confirmation;
 
-
+    use WithFileUploads;
 
     public $state = []; //All data collected over here
     public $user;
@@ -25,9 +25,12 @@ class ListUsers extends AdminComponent
 
     public $searchTerm = null;
 
+    public $photo;
+
     public function addNew()
     {
         $this->state = []; // Use for form reset
+        $this->photo = ''; //use for image input reset
         $this->showEditModal = false;  // For Edit data with same modal
         $this->dispatchBrowserEvent('show-form'); // Show Modal form
     }
@@ -41,6 +44,11 @@ class ListUsers extends AdminComponent
         ])->validate();
         
         $validatedData['password'] = bcrypt($validatedData['password']);
+
+        if($this->photo){
+            $validatedData['avatar'] = $this->photo->store('/','avatars');
+        }
+
         User::create($validatedData);
 
         // session()->flash('message','User added successfully.'); //for bootstrap alert
