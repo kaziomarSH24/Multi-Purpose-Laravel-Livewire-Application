@@ -139,14 +139,22 @@
             </div>
             <div class="form-group">
               <label for="customFile">Profile Image</label> 
-              @if ($photo)
-                  <img src="{{$photo->temporaryUrl()}}" class="img img-circle d-block my-1" style="width: 50px" alt="">
-              @else
-                  <img src="{{ $state['avatar_url'] ?? ''}}" class="img img-circle d-block my-1" style="width: 50px" alt="">
-                  <!-- avatar_url function appents in user.php model -->
-              @endif
-              <div class="custom-file">
-                <input wire:model="photo" type="file" class="custom-file-input" id="customFile"> <!-- create this fild in database command is 'php artisan make:migration add_avatar_field_to_users_table' -->
+              <div class="custom-file">  
+                <div x-data="{ isUploading: false, progress: 5 }"  
+                     x-on:livewire-upload-start = "isUploading = true"
+                     x-on:livewire-upload-finish = "isUploading = false; progress = 5"
+                     x-on:livewire-upload-error = "isUploading = false"
+                     x-on:livewire-upload-progress = "progress = $event.detail.progress"
+                > <!---- use alpine js for image uploading progress bar ---->
+
+
+                  <input wire:model="photo" type="file" class="custom-file-input" id="customFile"> <!-- create this fild in database command is 'php artisan make:migration add_avatar_field_to_users_table' -->
+                  <div x-show.transition="isUploading" class=" progress progress-sm my-2 rounded">
+                    <div class="progress-bar bg-indigo progress-bar-striped " role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
+                      <span class="sr-only">40% Complete (success)</span>
+                    </div>
+                  </div>
+                </div>
                 <label class="custom-file-label" for="customFile">
                   @if ($photo)
                       {{$photo->getClientOriginalName()}}
@@ -155,6 +163,12 @@
                   @endif
                 </label>
               </div>
+                @if ($photo)
+                    <img src="{{$photo->temporaryUrl()}}" class="img d-block my-2 w-50" alt="">
+                @else
+                    <img src="{{ $state['avatar_url'] ?? ''}}" class="img d-block my-2 w-50" alt="">
+                    <!-- avatar_url function appents in user.php model -->
+                @endif
             </div>
           </div>
           <div class="modal-footer ">

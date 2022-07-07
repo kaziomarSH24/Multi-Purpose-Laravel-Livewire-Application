@@ -66,7 +66,7 @@ class ListUsers extends AdminComponent
         $this->user = $user;
         $this->dispatchBrowserEvent('show-form'); // Show Modal form
 
-        dd($user->toArray());
+        // dd($user->toArray());
 
         $this->state = $user->toArray();
     }

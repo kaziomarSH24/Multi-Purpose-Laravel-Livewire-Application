@@ -16,6 +16,9 @@
   <!-- Tempusdominus Bootstrap 4 / datetimepicker css -->
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 
+  <!--alpine JS CDN -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
   @stack('styles')
 
   @livewireStyles
