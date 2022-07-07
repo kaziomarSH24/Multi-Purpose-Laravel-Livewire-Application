@@ -4,8 +4,8 @@ namespace App\Http\Livewire\Admin\Users;
 
 use App\Http\Livewire\Admin\AdminComponent; //my own component
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-
 
 class ListUsers extends AdminComponent
 {
@@ -28,8 +28,9 @@ class ListUsers extends AdminComponent
 
     public function addNew()
     {
-        $this->state = []; // Use for form reset
-        $this->photo = ''; //use for image input reset
+        //$this->state = []; // Use for form reset
+        //$this->photo = ''; //use for image input reset
+        $this->reset(); //This is livewire building function. It will reset all field
         $this->showEditModal = false;  // For Edit data with same modal
         $this->dispatchBrowserEvent('show-form'); // Show Modal form
     }
@@ -58,12 +59,14 @@ class ListUsers extends AdminComponent
 
     public function edit(User $user)
     {
+        $this->reset(); //This is livewire building function. It will reset all field
+
         $this->showEditModal = true;  // For Edit data with same modal
 
         $this->user = $user;
         $this->dispatchBrowserEvent('show-form'); // Show Modal form
 
-        // dd($user->toArray());
+        dd($user->toArray());
 
         $this->state = $user->toArray();
     }
@@ -79,6 +82,12 @@ class ListUsers extends AdminComponent
         
             if(!empty($validatedData['password'])){
                 $validatedData['password'] = bcrypt($validatedData['password']);
+            }
+
+            if($this->photo){
+
+                Storage::disk('avatars')->delete($this->user->avatar); //deleted old images
+                $validatedData['avatar'] = $this->photo->store('/','avatars');
             }
 
         $this->user->update($validatedData);

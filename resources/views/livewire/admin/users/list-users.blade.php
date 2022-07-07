@@ -55,7 +55,7 @@
                               {{-- <img src="{{ Storage::disk('avatars')->url($user->avatar) }}" alt="" style="width: 50px"> --}}
                               <img src="{{ $user->avatar_url }}" alt="" style="width: 50px"> <!-- avatar_url() create in User.php model -->
                             </td>
-                            <td>{{$user->name}}</td>
+                            <td>{{$user->name_uri}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at->toFormattedTime()}}</td> {{-- function created on AppServiceProvider.php --}}
                             <td>{{$user->created_at->toFormattedDate()}}</td> {{-- function created on AppServiceProvider.php --}}
@@ -139,7 +139,12 @@
             </div>
             <div class="form-group">
               <label for="customFile">Profile Image</label> 
-
+              @if ($photo)
+                  <img src="{{$photo->temporaryUrl()}}" class="img img-circle d-block my-1" style="width: 50px" alt="">
+              @else
+                  <img src="{{ $state['avatar_url'] ?? ''}}" class="img img-circle d-block my-1" style="width: 50px" alt="">
+                  <!-- avatar_url function appents in user.php model -->
+              @endif
               <div class="custom-file">
                 <input wire:model="photo" type="file" class="custom-file-input" id="customFile"> <!-- create this fild in database command is 'php artisan make:migration add_avatar_field_to_users_table' -->
                 <label class="custom-file-label" for="customFile">

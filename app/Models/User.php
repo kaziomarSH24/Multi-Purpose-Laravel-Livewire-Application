@@ -47,12 +47,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+protected $appends = [ 'avatar_url', /*'name_uri' */ ]; // avatar_url appends in $state proparte
+
     public function getAvatarUrlAttribute()
     {
-        if($this->avatar){
+        if($this->avatar && Storage::disk('avatars')->exists($this->avatar)){
             return Storage::disk('avatars')->url($this->avatar);
         }
 
         return asset('noimage.png');
     }
+
+    // public function getNameUriAttribute()
+    // {
+    //     if($this->name){
+    //         return $this->name. ' Kazi';
+    //     }
+    // }
 }
