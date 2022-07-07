@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Admin\Users;
 use App\Http\Livewire\Admin\AdminComponent; //my own component
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
-use Livewire\WithFileUploads;
+
 
 class ListUsers extends AdminComponent
 {
@@ -14,7 +14,6 @@ class ListUsers extends AdminComponent
     // public $password;
     // public $password_confirmation;
 
-    use WithFileUploads;
 
     public $state = []; //All data collected over here
     public $user;
@@ -109,7 +108,8 @@ class ListUsers extends AdminComponent
         $users = User::query()
                 ->where('name','LIKE','%'.$this->searchTerm.'%')
                 ->orWhere('email','LIKE','%'.$this->searchTerm.'%')
-                ->latest()->paginate(5);
+                ->latest()
+                ->paginate(5);
         return view('livewire.admin.users.list-users',compact('users'));
     }
 }
