@@ -19,6 +19,9 @@
   <!--alpine JS CDN -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{asset('backend')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+
   @stack('styles')
 
   @livewireStyles
@@ -102,7 +105,10 @@
             toastr.success(event.detail.message, 'Success!');
           })
     });
-    window.addEventListener('alert', event => {
+      window.addEventListener('alert', event => {
+            toastr.success(event.detail.message, 'Success!');
+          })
+      window.addEventListener('updated', event => {
             toastr.success(event.detail.message, 'Success!');
           })
 

@@ -23,7 +23,7 @@ class Appointment extends Model
         return $this->belongsTo(Client::class);
     }
 
-    public function getStatusBadgeAttribute()  // this function make "statusJ_badge" value
+    public function getStatusBadgeAttribute()  // this function make "status_badge" value
     {
         $badges = [
             'SCHEDULED' => 'primary',

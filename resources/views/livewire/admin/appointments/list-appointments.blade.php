@@ -1,6 +1,6 @@
 <div>
 
-  <x-loading-indicator/>
+  {{-- <x-loading-indicator/> --}}
 
   <div class="content-header">
      <div class="container-fluid">
@@ -23,6 +23,20 @@
                           <a href="{{ route('admin.appointments.create') }}">
                             <button type="button" class="btn mb-2 bg-gradient-primary"><i class="fa fa-plus-circle mr-1"></i>Add New Appointment</button>
                           </a>
+                          @if($selectedRows)
+                            <div class="btn-group mb-2 ml-2">
+                              <button type="button" class="btn btn-default">Bulk Actions</button>
+                              <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                              </button>
+                              <div class="dropdown-menu" role="menu" style="">
+                                <a wire:click.prevent="deleteSelectedRows" class="dropdown-item" href="#">Delete Selected</a>
+                                <a class="dropdown-item" wire:click.prevent="markAllAsScheduled" href="#">Mark as Scheduled</a>
+                                <a class="dropdown-item" wire:click.prevent="markAllAsClosed" href="#">Mark as Closed</a>
+                              </div>
+                            </div>
+                            <span class="ml-2">Selected {{count($selectedRows)}} {{Str::plural('appointment', count($selectedRows))}}</span>
+                          @endif
                         </div>
                         <div class="btn-group mb-2">
                           <button wire:click="filterAppointmentByStatus" type="button" class="btn {{is_null($status) ? 'btn-secondary' : 'btn-default'}}">
@@ -54,6 +68,12 @@
                        <table class="table table-hover text-nowrap">
                          <thead>
                            <tr>
+                            <th>
+                              <div class="icheck-primary d-inline ml-2">
+                                <input wire:model="selectPageRows" type="checkbox" value="" id="appointmentCheck1">
+                                <label for="appointmentCheck1"></label>
+                              </div>
+                            </th>
                              <th>ID</th>
                              <th>Client Name</th>
                              <th>Date</th>
@@ -65,10 +85,16 @@
                          <tbody>
                             @php
                                  $i = 1;
-                             @endphp
+                            @endphp
                           @forelse ($appointments as $appointment)
                                                          
                            <tr>
+                            <th>
+                              <div class="icheck-primary d-inline ml-2">
+                                <input wire:model="selectedRows" type="checkbox" value="{{$appointment->id}}" id="{{$appointment->id}}">
+                                <label for="{{$appointment->id}}"></label>
+                              </div>
+                            </th>
                             <td>{{$i++}}</td>
                             <td>{{$appointment->client->name}}</td>
                             <td>{{$appointment->date}}</td> {{-- function created on AppServiceProvider.php --}}
@@ -92,6 +118,7 @@
                            
                          </tbody>
                        </table>
+                       {{-- @dump($selectedRows) --}}
                      </div>
                     <div class="card-footer d-flex justify-content-end">
                       {!!$appointments->links()!!}
