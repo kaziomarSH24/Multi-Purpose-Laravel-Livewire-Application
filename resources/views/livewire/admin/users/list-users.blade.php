@@ -56,7 +56,7 @@
                               {{-- <img src="{{ Storage::disk('avatars')->url($user->avatar) }}" alt="" style="width: 50px"> --}}
                               <img src="{{ $user->avatar_url }}" alt="" style="width: 50px"> <!-- avatar_url() create in User.php model -->
                             </td>
-                            <td>{{$user->name_uri}}</td>
+                            <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at->toFormattedTime()}}</td> {{-- function created on AppServiceProvider.php --}}
                             <td>{{$user->created_at->toFormattedDate()}}</td> {{-- function created on AppServiceProvider.php --}}

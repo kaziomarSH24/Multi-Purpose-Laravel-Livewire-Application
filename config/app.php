@@ -177,6 +177,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\BladeComponentServiceProvider::class,
 
+
+        App\Providers\FortifyServiceProvider::class,
+
     ],
 
     /*
