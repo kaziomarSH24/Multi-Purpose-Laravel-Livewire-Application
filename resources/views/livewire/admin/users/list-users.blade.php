@@ -43,6 +43,7 @@
                             <th>Image</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>Registerd Time</th>
                             <th>Registerd Date</th>
                             <th>Options</th>
@@ -58,6 +59,12 @@
                             </td>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
+                            <td>
+                              <select class="form-control" wire:change="changeRole({{$user}},$event.target.value)">
+                                <option value="admin" {{($user->role === 'admin') ? 'selected' : ''}}>ADMIN</option>
+                                <option value="user" {{($user->role === 'user') ? 'selected' : ''}}>USER</option>
+                              </select>
+                            </td>
                             <td>{{$user->created_at->toFormattedTime()}}</td> {{-- function created on AppServiceProvider.php --}}
                             <td>{{$user->created_at->toFormattedDate()}}</td> {{-- function created on AppServiceProvider.php --}}
                             <td>

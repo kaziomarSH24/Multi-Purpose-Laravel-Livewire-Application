@@ -6,6 +6,7 @@ use App\Http\Livewire\Admin\AdminComponent; //my own component
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ListUsers extends AdminComponent
 {
@@ -25,6 +26,19 @@ class ListUsers extends AdminComponent
     public $searchTerm = null;
 
     public $photo;
+
+    public function changeRole(User $user, $role)
+    {
+        Validator::make(['role' => $role],[
+            'role' => [
+                'required',
+                Rule::in(User::ROLE_ADMIN, User::ROLE_USER),
+            ],
+        ])->validate();
+        $user->update(['role' => $role]);
+
+        $this->dispatchBrowserEvent('updated',['message' => "Role changed to {$role} successfully!"]);
+    }
 
     public function addNew()
     {

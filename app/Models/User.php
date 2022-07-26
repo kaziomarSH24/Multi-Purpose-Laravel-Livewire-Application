@@ -26,6 +26,7 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
+        'role',
     ];
 
     /**
@@ -75,4 +76,5 @@ protected $appends = [ 'avatar_url', /*'name_uri' */ ]; // avatar_url appends in
         }
         return true;
     }
+
 }
