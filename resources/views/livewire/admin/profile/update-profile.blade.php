@@ -23,19 +23,9 @@
               <!-- Profile Image -->
               <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
-                  <div class="text-center" x-data="{imagePreview: '{{auth()->user()->avatar_url}}'}">
-                    <input class="d-none" wire:model="image" type="file" x-ref="image" 
-                        x-on:change="
-                            reader = new FileReader();
-                            reader.onload = (event) => {
-                                imagePreview = event.target.result;
-                                document.getElementById('profileImage').src = `${imagePreview}`;
-                            };
-                            reader.readAsDataURL($refs.image.files[0]);
-                            
-                        "
-                    >
-                    <img @click="$refs.image.click()" class="profile-user-img img-fluid img-circle" x-bind:src="imagePreview ? imagePreview : '{{asset('backend/dist/img/user4-128x128.jpg')}}'" alt="User profile picture">
+                  <div class="text-center">
+                    <input class="d-none" onchange="preview()" wire:model="image" id="image" type="file">
+                    <img id="img_pre" class="profile-user-img img-fluid img-circle" src="{{auth()->user()->avatar_url}}" alt="User profile picture">
                   </div>
   
                   <h3 class="profile-username text-center">{{auth()->user()->name}}</h3>
@@ -92,7 +82,35 @@
       </section>
 
   </div>
-  
+  @push('js')
+      <script>
+        $(document).ready(function () {
+          let _img = $('#image');
+          $(document).on('click','#img_pre', function () {
+            _img.click();
+          });
+          
+        });
+
+        // var loadFile = function(event) {
+        //   var reader = new FileReader();
+        //   reader.onload = function(){
+        //     // var output = document.getElementById('img_pre');
+        //     img_pre.src = reader.result;
+        //     profileImage.src = reader.result;
+        //   };
+        //   reader.readAsDataURL(event.target.files[0]);
+        // };
+
+        function preview() {
+          let _imgVal = event.target.files[0];
+            
+            profileImage.src=URL.createObjectURL(_imgVal);
+            img_pre.src=URL.createObjectURL(_imgVal);
+            // @this.set('image',_imgVal);
+        }
+      </script>
+  @endpush
   @push('styles')
       <style>
         .profile-user-img{
