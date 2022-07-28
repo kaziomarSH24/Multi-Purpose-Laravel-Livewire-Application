@@ -1,4 +1,4 @@
-<div class="la-ball-beat">
+<div class="la-ball-beat" style="height: 52px">
 	<div></div>
 	<div></div>
 	<div></div>
