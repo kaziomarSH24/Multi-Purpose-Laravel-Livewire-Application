@@ -26,10 +26,6 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{asset('backend')}}/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="{{asset('backend')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-
   @stack('styles')
 
   @livewireStyles
@@ -81,8 +77,7 @@
 
 <!-- CKEditor cdn -->
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
-<!-- Select2 -->
-<script src="{{asset('backend')}}/plugins/select2/js/select2.full.min.js"></script>
+
 
 
 

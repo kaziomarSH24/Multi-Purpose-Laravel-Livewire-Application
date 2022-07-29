@@ -72,6 +72,16 @@
                             </div>
                           </div>
                           <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                              <x-inputs.select2 wire:model="state.profileSelect" id="profileSelect" placeholder="Profile Select">
+                                <option value="one">One</option>
+                                <option value="two">Two</option>
+                                <option value="three">Three</option>
+                              </x-inputs.select2>
+                            </div>
+                          </div>
+                          <div class="form-group row">
                             <div class="offset-sm-2 col-sm-10">
                               <button type="submit" class="btn btn-danger">Submit</button>
                             </div>

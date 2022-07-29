@@ -45,10 +45,10 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div wire:ignore class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Select Team Members</label>
-                                        <select class="select2 team_members"  multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                                        <x-inputs.select2 wire:model="state.members" id="teamMembers" placeholder="Select Members">
                                           <option>Alabama</option>
                                           <option>Alaska</option>
                                           <option>California</option>
@@ -56,7 +56,22 @@
                                           <option>Tennessee</option>
                                           <option>Texas</option>
                                           <option>Washington</option>
-                                        </select>
+                                        </x-inputs.select2>
+                                      </div>
+                                      <!-- /.form-group -->
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Select Team Members2</label>
+                                        <x-inputs.select2 wire:model="state.others" id="others">
+                                            <option>One</option>
+                                            <option>Two</option>
+                                            <option>California</option>
+                                            <option>Delaware</option>
+                                            <option>Tennessee</option>
+                                            <option>Texas</option>
+                                            <option>Washington</option>
+                                        </x-inputs.select2>
                                       </div>
                                       <!-- /.form-group -->
                                 </div>
@@ -199,13 +214,7 @@
                   console.error( error );
           } );
 
-        //Initialize Select2 Elements
-        $('.select2').select2({
-            theme: 'bootstrap4'
-        }).on('change', function (){
-            // alert('here');
-            @this.set('state.members',$(this).val());
-        });
+
     });
   </script>
 @endpush
