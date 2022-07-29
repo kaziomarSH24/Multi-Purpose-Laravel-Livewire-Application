@@ -15,10 +15,11 @@ class CreateAppointomentForm extends Component
 
     public function createAppointment()
     {
-
+        // dd($this->state);
         Validator::make($this->state,[
 
             'client_id' => 'required',
+            'members' => 'nullable',
             'date' => 'required',
             'time' => 'required',
             'note' => 'nullable',
@@ -34,6 +35,7 @@ class CreateAppointomentForm extends Component
         Appointment::create($this->state);
 
         $this->dispatchBrowserEvent('alert',['message' => 'Appointment created successfully']);
+        $this->reset();
     }
 
     public function render()

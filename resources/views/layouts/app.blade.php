@@ -20,12 +20,15 @@
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/toastr/toastr.min.css">
   <!-- Tempusdominus Bootstrap 4 / datetimepicker css -->
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-
   <!--alpine JS CDN -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <!-- iCheck -->
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('backend')}}/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="{{asset('backend')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
   @stack('styles')
 
@@ -78,6 +81,8 @@
 
 <!-- CKEditor cdn -->
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+<!-- Select2 -->
+<script src="{{asset('backend')}}/plugins/select2/js/select2.full.min.js"></script>
 
 
 
@@ -116,6 +121,8 @@
       window.addEventListener('updated', event => {
             toastr.success(event.detail.message, 'Success!');
           })
+
+          
 
   </script>
 
