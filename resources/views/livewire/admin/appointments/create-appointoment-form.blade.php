@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="#" autocomplete="off" wire:submit.prevent="createAppointment">
+                        <form action="#" autocomplete="off" id="submitAppointment" wire:submit.prevent="createAppointment">
                             <div class="card-header">
                             <h3 class="card-title">Add new Appointment</h3>
                             </div>
@@ -48,15 +48,22 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Select Team Members</label>
-                                        <x-inputs.select2 wire:model="state.members" id="teamMembers" placeholder="Select Members">
-                                          <option>Alabama</option>
-                                          <option>Alaska</option>
-                                          <option>California</option>
-                                          <option>Delaware</option>
-                                          <option>Tennessee</option>
-                                          <option>Texas</option>
-                                          <option>Washington</option>
-                                        </x-inputs.select2>
+                                        <div class="@error('members') is-invalid custom-error @enderror"> <!--Solving Bootstrap error message in select2 -->
+                                            <x-inputs.select2 wire:model="state.members" id="teamMembers" placeholder="Select Members">
+                                                <option>Alabama</option>
+                                                <option>Alaska</option>
+                                                <option>California</option>
+                                                <option>Delaware</option>
+                                                <option>Tennessee</option>
+                                                <option>Texas</option>
+                                                <option>Washington</option>
+                                                </x-inputs.select2>
+                                        </div>
+                                        @error('members')
+                                            <div class="invalid-feedback">
+                                                {{$message}}
+                                            </div>
+                                        @enderror
                                       </div>
                                       <!-- /.form-group -->
                                 </div>
@@ -161,7 +168,7 @@
                         </div>
                         <div class="card-footer">
                             <button type="button" class="btn btn-secondary"><i class="fa fa-times mr-1"></i>Close</button>
-                            <button type="submit" id="submitAppointment" class="btn btn-primary"><i class="fa fa-save mr-1"></i>Save</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i>Save</button>
                         </div>
                         </form>
                     </div>
@@ -172,10 +179,22 @@
 </div>
 
 @push('js')
+
 <script>
-    $(document).ready(function () {
-        
+    ClassicEditor.create( document.querySelector( '#note' ) );
+
+    $('#submitAppointment').submit(function (e) { 
+        e.preventDefault();
+        @this.set('state.members',$('#teamMembers').val());
+        @this.set('state.note', $('#note').val());
+    });
+
+
      //   <---- This is old mathod ---->
+
+    // $(document).ready(function () {
+        
+    
 
     //   let _date = $('#appointmentDate');
     //   let _time = $('#appointmentTime');
@@ -194,38 +213,36 @@
     //     eval(@this).set('state.time',_appointmentTime);
     //   });
 
-    //  <---- This is old mathod ---->
+    
 
 
 
-      ClassicEditor
-          .create( document.querySelector( '#note' ) )
-          .then( editor => {
-        //     editor.model.document.on('change:data', () => {    // =====This approach send lot of request in server. That's why we ignore it ======
-        //    @this.set('state.note', editor.getData());
-        //   }); 
+    //   ClassicEditor
+    //       .create( document.querySelector( '#note' ) )
+    //       .then( editor => {
+    //     //     editor.model.document.on('change:data', () => {    // =====This approach send lot of request in server. That's why we ignore it ======
+    //     //    @this.set('state.note', editor.getData());
+    //     //   }); 
               
-            document.querySelector('#submitAppointment').addEventListener('click', () => {  //====== This  mathod Send only one request in server ====
-                @this.set('state.note', editor.getData());
-            })
+    //         document.querySelector('#submitAppointment').addEventListener('click', () => {  //====== This  mathod Send only one request in server ====
+    //             @this.set('state.note', editor.getData());
+    //         })
             
-          })
-          .catch( error => {
-                  console.error( error );
-          } );
+    //       })
+    //       .catch( error => {
+    //               console.error( error );
+    //       } );
 
 
-    });
+    // });
+
+    //  <---- This is old mathod ---->
   </script>
 @endpush
 
 @push('styles')
+<!--Solving Bootstrap error message in select2 -->
     <style>
-        /* .team_members{
-            box-shadow: none !important;
-        }
-        .team_members:focus{
-            box-shadow: none !important;
-        } */
+        
     </style>
 @endpush

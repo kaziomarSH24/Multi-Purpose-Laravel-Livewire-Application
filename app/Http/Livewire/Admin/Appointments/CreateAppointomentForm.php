@@ -15,11 +15,11 @@ class CreateAppointomentForm extends Component
 
     public function createAppointment()
     {
-        dd($this->state);
+        // dd($this->state);
         Validator::make($this->state,[
 
             'client_id' => 'required',
-            'members' => 'nullable',
+            'members' => 'required',
             'date' => 'required',
             'time' => 'required',
             'note' => 'nullable',
