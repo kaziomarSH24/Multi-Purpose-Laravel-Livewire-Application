@@ -67,20 +67,40 @@
                                       </div>
                                       <!-- /.form-group -->
                                 </div>
+                                {{-- <div class="col-md-6">
+                                    <!-- Color Picker -->
+                                    <div class="form-group" wire:ignore.self>
+                                        <label>Color picker:</label>
+                                        <input wire:model.defer="state.color" type="text" placeholder="Select Color" class="form-control @error('color') is-invalid @enderror" id="colorPicker">
+                                        @error('color')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <!-- /.form group -->
+                                </div> --}}
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Select Team Members2</label>
-                                        <x-inputs.select2 wire:model="state.others" id="others">
-                                            <option>One</option>
-                                            <option>Two</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
-                                        </x-inputs.select2>
-                                      </div>
-                                      <!-- /.form-group -->
+                                    <!-- Color Picker -->
+                                    <div class="form-group" wire:ignore.self>
+                                        <label>Color picker with addon:</label>
+                    
+                                        <div class="input-group" id="colorPicker">
+                                        <input wire:model.defer="state.color" placeholder="Choose Color" type="text" name="color" class="form-control @error('color') is-invalid @enderror">
+                    
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-square"></i></span>
+                                        </div>
+                                        @error('color')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                        @enderror
+                                        </div>
+                                        <!-- /.input group -->
+                                        
+                                    </div>
+                                    <!-- /.form group -->
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -89,7 +109,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                             </div>
-                                            <x-datepicker wire:model.defer="state.date" id="appointmentDate" :error="'date'"/>
+                                            <x-datepicker wire:model.defer="state.date" placeholder="DD/MM/YYYY" id="appointmentDate" :error="'date'"/>
                                             @error('date')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -105,7 +125,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="far fa-clock"></i></span>
                                             </div>
-                                            <x-timepicker wire:model.defer="state.time" id="appointmentTime" :error="'time'"/>
+                                            <x-timepicker wire:model.defer="state.time" placeholder="HH:MM" id="appointmentTime" :error="'time'"/>
                                             @error('time')
                                                 <div class="invalid-feedback">
                                                     {{$message}}
@@ -178,15 +198,36 @@
     </div>
 </div>
 
+
+@push('js')
+    <script>
+        
+    //Color Picker
+    // $('#colorPicker').colorpicker();
+
+        //color picker with addon
+        $('#colorPicker').colorpicker().on('colorpickerChange', function(event){
+            $('#colorPicker .fa-square').css('color',event.color.toString());
+        })
+
+        // $('.my-colorpicker2').on('colorpickerChange', function(event) {
+        // $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+        // })
+
+    </script>
+@endpush
+
 @push('js')
 
 <script>
+    //CKEditor
     ClassicEditor.create( document.querySelector( '#note' ) );
-
+    //form submit without every ajax request
     $('#submitAppointment').submit(function (e) { 
         e.preventDefault();
         @this.set('state.members',$('#teamMembers').val());
         @this.set('state.note', $('#note').val());
+        @this.set('state.color', $('[name=color]').val());
     });
 
 

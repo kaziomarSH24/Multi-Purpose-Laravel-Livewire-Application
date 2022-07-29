@@ -48,7 +48,7 @@
                                 <div wire:ignore class="col-md-6">
                                     <div class="form-group">
                                         <label>Select Team Members</label>
-                                        <select wire:model="state.members" class="select2 team_members"  multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                                        <select  wire:model="state.members" class="select2 team_members"  multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
                                           <option>Alabama</option>
                                           <option>Alaska</option>
                                           <option>California</option>

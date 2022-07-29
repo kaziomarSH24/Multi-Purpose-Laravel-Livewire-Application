@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css"> 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/fontawesome-free/css/all.min.css">
-
   <!--IonIcons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
@@ -22,9 +21,10 @@
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!--alpine JS CDN -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
   <!-- iCheck -->
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="{{asset('backend')}}/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
 
   @stack('styles')
 
@@ -74,9 +74,10 @@
 <!-- Tempusdominus Bootstrap 4 / datetimepicker js -->
 <script src="https://unpkg.com/moment"></script>
 <script src="{{asset('backend')}}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-
 <!-- CKEditor cdn -->
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+<!-- bootstrap color picker -->
+<script src="{{asset('backend')}}/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 
 
 
@@ -116,9 +117,6 @@
       window.addEventListener('updated', event => {
             toastr.success(event.detail.message, 'Success!');
           })
-
-          
-
   </script>
 
 @stack('js')
