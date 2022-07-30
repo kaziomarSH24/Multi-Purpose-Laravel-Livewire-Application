@@ -1,4 +1,8 @@
-<div wire:loading.delay>
+@props(['target' => null ])
+
+<div wire:loading.delay @if ($target != null)
+    wire:target="{{$target}}"
+@endif>
     <div class="d-flex justify-content-center align-items-center position-fixed bg-dark "   style="background:#000; top:0; left:0; z-index:99999999; width:100%; height:100%; opacity: 0.8">
         <div class="la-ball-fussion la-white la-2x">
         <div></div>
@@ -9,12 +13,14 @@
     </div>
 </div>
 
+@once
 @push('styles')
     <style>
         /*!
     * Load Awesome v1.1.0 (http://github.danielcardoso.net/load-awesome/)
     * Copyright 2015 Daniel Cardoso <@DanielCardoso>
     * Licensed under MIT
+    * For Loading-indicator
     */
     .la-ball-fussion,
     .la-ball-fussion > div {
@@ -373,3 +379,4 @@
     }
     </style>
 @endpush
+@endonce

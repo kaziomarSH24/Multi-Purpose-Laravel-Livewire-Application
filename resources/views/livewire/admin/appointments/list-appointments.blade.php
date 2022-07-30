@@ -1,6 +1,10 @@
 <div>
+  <x-loading-indicator :target="'productParPage'"/>
+  <x-loading-indicator :target="'filterAppointmentByStatus'"/>
+  <x-loading-indicator :target="'confirmAppointmentRemobval'"/>
+  <x-loading-indicator :target="'selectPageRows'"/>
+  <x-loading-indicator :target="'export'"/>
 
-  {{-- <x-loading-indicator/> --}}
 
   <div class="content-header">
      <div class="container-fluid">
@@ -33,6 +37,7 @@
                                 <a wire:click.prevent="deleteSelectedRows" class="dropdown-item" href="#">Delete Selected</a>
                                 <a class="dropdown-item" wire:click.prevent="markAllAsScheduled" href="#">Mark as Scheduled</a>
                                 <a class="dropdown-item" wire:click.prevent="markAllAsClosed" href="#">Mark as Closed</a>
+                                <a class="dropdown-item" wire:click.prevent="export" href="#">Export</a>
                               </div>
                             </div>
                             <span class="ml-2">Selected {{count($selectedRows)}} {{Str::plural('appointment', count($selectedRows))}}</span>
@@ -53,6 +58,19 @@
                             <span class="mr-1">Closed</span>
                             <span class="badge badge-pill badge-success">{{$closedAppointmentsCount}}</span>
                           </button>
+                          <div class="ml-3" wire:ignore>
+                            <select name="post-per-page" class="form-control" wire:model="productParPage">
+                                <option value="12" selected="selected">12 per page</option>
+                                <option value="16">16 per page</option>
+                                <option value="18">18 per page</option>
+                                <option value="21">21 per page</option>
+                                <option value="24">24 per page</option>
+                                <option value="30">30 per page</option>
+                                <option value="40">40 per page</option>
+                                <option value="50">50 per page</option>
+                                <option value="{{$appointmentsCount}}">All Appointments</option>
+                            </select>
+                        </div>
                         </div>
                      </div>
                    <div class="card">
@@ -89,7 +107,7 @@
                           @forelse ($appointments as $appointment)
                                                          
                            <tr>
-                            <th>
+                            <th style="width: 8px">
                               <div class="icheck-primary d-inline ml-2">
                                 <input wire:model="selectedRows" type="checkbox" value="{{$appointment->id}}" id="{{$appointment->id}}">
                                 <label for="{{$appointment->id}}"></label>
@@ -109,7 +127,7 @@
                           </tr>
                           @empty
                           <tr>
-                            <td colspan="6" class="text-center">
+                            <td colspan="7" class="text-center">
                               <img src="{{asset('img')}}/icon/undraw_void_-3-ggu.svg" alt="No result found" width="100px">
                               <h3 class="mt-2">No result found</h3>
                             </td>

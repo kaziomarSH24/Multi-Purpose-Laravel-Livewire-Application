@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire\Admin\Appointments;
 
+use App\Exports\AppointmentsExport;
 use App\Http\Livewire\Admin\AdminComponent; //my own component
 use App\Models\Appointment;
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Builder;
+use Excel;
+
 
 class ListAppointments extends AdminComponent
 {
@@ -23,7 +26,7 @@ class ListAppointments extends AdminComponent
 
     public $selectPageRows = false;
 
-
+    public $productParPage = 12;
 
 
 
@@ -80,7 +83,7 @@ class ListAppointments extends AdminComponent
                                $query->where('name','LIKE','%'.$this->searchAppointment.'%');
                            })
                            ->latest()
-                           ->paginate(3);
+                           ->paginate($this->productParPage);
     }
 
     public function deleteSelectedRows()
@@ -107,6 +110,15 @@ class ListAppointments extends AdminComponent
 
         $this->dispatchBrowserEvent('updated',['message' => 'Appointments marked as closed']);
 
+        $this->reset(['selectedRows','selectPageRows']);
+    }
+
+
+    public function export()
+    {
+        // return Excel::download(new AppointmentsExport, 'appointments.xlsx');
+
+        return (new AppointmentsExport($this->selectedRows))->download('appointments.xls');
         $this->reset(['selectedRows','selectPageRows']);
     }
 
