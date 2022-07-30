@@ -1,5 +1,5 @@
 <div>
-  <x-loading-indicator/>
+  {{-- <x-loading-indicator/> --}}
    <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -30,8 +30,13 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 class="card-title">Users List</h3>
-                      <div class="card-tools">
-                        <x-search-input wire:model="searchTerm" :target="'searchTerm'"/>
+                      <div class="card-tools d-flex">
+                        <div class="mr-3">
+                          <x-search-input wire:model="searchTerm" :target="'searchTerm'"/>
+                        </div>
+                        <div wire:click="$refresh">
+                          <span wire:target="$refresh" wire:loading.class="animate-spin"><i class="fa-light fa-arrow-rotate-right"></i></span>
+                        </div>
                       </div>
                     </div>
                     
@@ -219,3 +224,38 @@
 
 
 
+<style>
+  .animate-spin{
+    display: inline-block;
+    animation: roted 2s linear infinite;
+  }
+  @keyframes roted{
+    from{
+      transform: rotate(0);
+    }
+    to{
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+@push('js')
+<script>
+//   document.addEventListener("contextmenu", function (e) {
+//    e.preventDefault();
+//    alert('Right click disabled on this page');
+//  });
+ 
+ $(document).ready(function () {
+   $('body').bind('cut copy paste',function(e) {
+     e.preventDefault(); 
+     alert('Cut, Copy & Paste disabled on this page');
+     return false; 
+ }).bind('contextmenu',function(e){
+  e.preventDefault();
+  alert('Right click disabled on this page');
+  return false;
+ });
+ });
+ </script>
+@endpush

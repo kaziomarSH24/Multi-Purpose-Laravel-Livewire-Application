@@ -129,6 +129,7 @@ class ListUsers extends AdminComponent
     {
         // dd($this->searchTerm);
         $users = User::query()
+                ->inRandomOrder()
                 ->where('name','LIKE','%'.$this->searchTerm.'%')
                 ->orWhere('email','LIKE','%'.$this->searchTerm.'%')
                 ->latest()
