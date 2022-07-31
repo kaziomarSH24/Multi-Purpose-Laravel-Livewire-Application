@@ -1,6 +1,11 @@
 <div>
-  <x-loading-indicator/>
-   <div class="content-header">
+  <!-- Loading indicator for specific target -->
+  <x-loading-indicator :target="'edit'"/>
+  <x-loading-indicator :target="'confirmUserRemoval'"/>
+  <x-loading-indicator :target="'addNew'"/>
+
+
+   <div class="content-header" style="display: block">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
@@ -181,13 +186,19 @@
           </div>
           <div class="modal-footer ">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i>Close</button>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save mr-1"></i>
-              @if ($showEditModal) <!-- This condition form Update Data By same modal form-->
-              <span>Save Changes</span>
-              @else
-              <span>Save</span>
-              @endif
-            </button>
+          @if ($showEditModal)
+              <div wire:ignore>
+                <x-button :target="'updateUser'">
+                  <i wire:loading.remove wire:target="updateUser" class="fa fa-save mr-1"></i>
+                  <span>Save Changes</span>
+                </x-button>
+              </div>
+          @else
+              <x-button :target="'createUser'">
+                <i wire:loading.remove wire:target="createUser" class="fa fa-save mr-1"></i>
+                <span>Save</span>
+              </x-button>
+          @endif
           </div>
         </div>
       </form>

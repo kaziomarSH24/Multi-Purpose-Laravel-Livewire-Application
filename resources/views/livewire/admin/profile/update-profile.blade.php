@@ -83,7 +83,7 @@
                           </div>
                           <div class="form-group row">
                             <div class="offset-sm-2 col-sm-10">
-                              <button type="submit" class="btn btn-danger">Submit</button>
+                              <x-button class="btn-danger">Submit</x-button>
                             </div>
                           </div>
                         </form>

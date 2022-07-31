@@ -146,7 +146,7 @@
                         </div>
                         <div class="card-footer">
                             <button type="button" class="btn btn-secondary"><i class="fa fa-times mr-1"></i>Close</button>
-                            <button type="submit" id="submitAppointment" class="btn btn-primary"><i class="fa fa-save mr-1"></i>Save Changes</button>
+                            <x-button id="submitAppointment"><i wire:loading.remove class="fa fa-save mr-1"></i>Save Changes</x-button>
                         </div>
                         </form>
                     </div>
