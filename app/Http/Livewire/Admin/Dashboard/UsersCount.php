@@ -16,11 +16,13 @@ class UsersCount extends Component
         $this->getUsersCount();
     }
 
-    public function getUsersCount($option = "allUsers")
+    public function getUsersCount($option = "allMembers")
     {
         // dump($option);
-        if($option == "allUsers"){
+        if($option === "allMembers"){
             $this->usersCount = User::count();
+        }elseif($option === "admin" || $option === 'user'){
+            $this->usersCount = User::whereRole($option)->count();
         }else{
             $this->usersCount = User::query()
                           ->whereBetween('created_at',$this->getDateRange($option))

@@ -8,7 +8,9 @@
             </div>
               <h3 wire:loading.remove>{{$usersCount}}</h3>
               <select wire:change="getUsersCount($event.target.value)" class="form-control">
-                  <option value="allUsers">All Users</option>
+                  <option value="allMembers">All Members</option>
+                  <option value="admin">Admin</option>
+                  <option value="user">Users</option>
                   <option value="TODAY">Today</option>
                   <option value="30">30 days</option>
                   <option value="60">60 days</option>

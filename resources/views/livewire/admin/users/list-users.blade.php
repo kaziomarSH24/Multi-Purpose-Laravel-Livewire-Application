@@ -219,7 +219,11 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times mr-1"></i>Close</button>
-          <button type="button" class="btn btn-danger" wire:click.prevent="deleteUser"><i class="fa fa-trash-alt mr-1"></i>Delete User</button>
+          <div wire:ignore>
+            <x-button wire:click.prevent="deleteUser" class="btn-danger" :target="'deleteUser'">
+              <i wire:loading.remove wire:target="deleteUser" class="fa fa-trash-alt mr-1"></i>Delete User
+            </x-button>
+          </div>
         </div>
       </div>
     </div>
