@@ -29,10 +29,10 @@
                             reader = new FileReader();
                             reader.onload = (event) => {
                                 imagePreview = event.target.result;
-                                document.querySelectorAll('.profileImage').src = `${imagePreview}`;
+                                document.getElementById('profileImage').src = `${imagePreview}`;
+                                document.getElementById('profileImageAsid').src = `${imagePreview}`;
                             };
                             reader.readAsDataURL($refs.image.files[0]);
-                            
                         "
                     >
                     <img @click="$refs.image.click()" class="profile-user-img img-fluid img-circle" x-bind:src="imagePreview ? imagePreview : '{{asset('backend/dist/img/user4-128x128.jpg')}}'" alt="User profile picture">
@@ -48,16 +48,16 @@
             </div>
             <!-- /.col -->
             <div class="col-md-9">
-              <div class="card">
+              <div class="card" x-data="{currentTab: $persist('editProfile') }">
                 <div class="card-header p-2">
                   <ul class="nav nav-pills">
-                    <li wire:ignore class="nav-item"><a class="nav-link active" href="#editProfile" data-toggle="tab"><i class="fa-solid fa-user mr-1"></i> Edit Profile</a></li>
-                    <li wire:ignore class="nav-item"><a class="nav-link" href="#changePassword" data-toggle="tab"><i class="fa-solid fa-key mr-1"></i> Change Password</a></li>
+                    <li @click.prevent="currentTab = 'editProfile'" wire:ignore class="nav-item"><a class="nav-link" :class="currentTab === 'editProfile' ? 'active' : '' " href="#editProfile" data-toggle="tab"><i class="fa-solid fa-user mr-1"></i> Edit Profile</a></li>
+                    <li @click.prevent="currentTab = 'changePassword'" wire:ignore class="nav-item" ><a class="nav-link" :class="currentTab === 'changePassword' ? 'active' : '' " href="#changePassword" data-toggle="tab"><i class="fa-solid fa-key mr-1"></i> Change Password</a></li>
                   </ul>
                 </div><!-- /.card-header -->
                 <div class="card-body">
                     <div class="tab-content">
-                      <div wire:ignore.self class="tab-pane active" id="editProfile">
+                      <div wire:ignore.self class="tab-pane" :class="currentTab === 'editProfile' ? 'active' : '' " id="editProfile">
                         <form wire:submit.prevent="updateProfile" id="authUserUpdateProfile" class="form-horizontal">
                           <div class="form-group row">
                             <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -84,7 +84,7 @@
 
                           <div class="form-group row">
                             <div class="offset-sm-2 col-sm-10">
-                              <x-button class="btn-success"> <i class="fa fa-save mr-1"></i> Save Change</x-button>
+                              <x-button :target="'updateProfile'" class="btn-success"> <i class="fa fa-save mr-1"></i> Save Change</x-button>
                             </div>
                           </div>
                         </form>
@@ -92,7 +92,7 @@
                       <!-- /.tab-pane -->
 
 
-                      <div wire:ignore.self class="tab-pane" id="changePassword">
+                      <div wire:ignore.self class="tab-pane" :class="currentTab === 'changePassword' ? 'active' : '' " id="changePassword">
                         <form wire:submit.prevent="changePassword" id="authUserUpdateProfile" class="form-horizontal">
                           <div class="form-group row">
                             <label for="currentPassword" class="col-sm-3 col-form-label">Current Password</label>
@@ -130,7 +130,7 @@
 
                           <div class="form-group row">
                             <div class="offset-sm-3 col-sm-9">
-                              <x-button class="btn-success"> <i class="fa fa-save mr-1"></i> Save Change</x-button>
+                              <x-button :target="'changePassword'" class="btn-success"> <i class="fa fa-save mr-1"></i> Save Change</x-button>
                             </div>
                           </div>
                         </form>
@@ -162,6 +162,11 @@
         }
       </style>
   @endpush
+
+  @push('alpine-plugin')
+      <!-- Alpine Plugins -->
+      <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+  @endpush  
 
   @push('js')
     {{-- <script>

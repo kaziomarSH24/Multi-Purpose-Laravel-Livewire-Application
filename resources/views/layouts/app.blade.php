@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/toastr/toastr.min.css">
   <!-- Tempusdominus Bootstrap 4 / datetimepicker css -->
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
+  @stack('alpine-plugin')
   <!--alpine JS CDN -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <!-- iCheck -->
@@ -120,6 +122,18 @@
   </script>
 
 @stack('js')
+
+
+<script>
+  $(document).ready(() => {
+    $('[x-ref="editProfileLink"]').on('click', () => {
+      localStorage.setItem('_x_currentTab','"editProfile"');
+    });
+    $('[x-ref="changePasswordLink"]').on('click', () => {
+      localStorage.setItem('_x_currentTab','"changePassword"');
+    });
+  });
+</script>
 
 @livewireScripts
 </body>

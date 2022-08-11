@@ -137,11 +137,12 @@
             <span class="ml-1" x-user="username">{{ auth()->user()->name }}</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#" x-ref="profileLink">Profile</a>
-            <a class="dropdown-item" href="#" x-ref="changePasswordLink">Change Password</a>
-            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="{{route('admin.profile.edit')}}" x-ref="editProfileLink">Profile</a>
+            <a class="dropdown-item" href="{{route('admin.profile.edit')}}" x-ref="changePasswordLink">Change Password</a>
+            <a class="dropdown-item" href="{{route('admin.settings')}}">Settings</a>
             <div class="dropdown-divider"></div>
             <form method="POST" action="{{ route('logout') }}">
+              @csrf
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
             </form>
         </div>
