@@ -133,7 +133,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="{{ auth()->user()->avatar_url }}" id="profileImage" class="img-circle elevation-1" alt="User Image" style="height: 30px; width: 30px;">
+            <img src="{{ auth()->user()->avatar_url }}" id="profileImage" class="img-circle profileImage elevation-1" alt="User Image" style="height: 30px; width: 30px;">
             <span class="ml-1" x-user="username">{{ auth()->user()->name }}</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">

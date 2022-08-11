@@ -29,7 +29,7 @@
                             reader = new FileReader();
                             reader.onload = (event) => {
                                 imagePreview = event.target.result;
-                                document.getElementById('profileImage').src = `${imagePreview}`;
+                                document.querySelectorAll('.profileImage').src = `${imagePreview}`;
                             };
                             reader.readAsDataURL($refs.image.files[0]);
                             
@@ -51,13 +51,13 @@
               <div class="card">
                 <div class="card-header p-2">
                   <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Change Password</a></li>
+                    <li wire:ignore class="nav-item"><a class="nav-link active" href="#editProfile" data-toggle="tab"><i class="fa-solid fa-user mr-1"></i> Edit Profile</a></li>
+                    <li wire:ignore class="nav-item"><a class="nav-link" href="#changePassword" data-toggle="tab"><i class="fa-solid fa-key mr-1"></i> Change Password</a></li>
                   </ul>
                 </div><!-- /.card-header -->
                 <div class="card-body">
                     <div class="tab-content">
-                      <div class="tab-pane active" id="settings">
+                      <div wire:ignore.self class="tab-pane active" id="editProfile">
                         <form wire:submit.prevent="updateProfile" id="authUserUpdateProfile" class="form-horizontal">
                           <div class="form-group row">
                             <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -84,7 +84,53 @@
 
                           <div class="form-group row">
                             <div class="offset-sm-2 col-sm-10">
-                              <x-button class="btn-success"> <i class="fa fa-save mr-1"></i> Submit</x-button>
+                              <x-button class="btn-success"> <i class="fa fa-save mr-1"></i> Save Change</x-button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <!-- /.tab-pane -->
+
+
+                      <div wire:ignore.self class="tab-pane" id="changePassword">
+                        <form wire:submit.prevent="changePassword" id="authUserUpdateProfile" class="form-horizontal">
+                          <div class="form-group row">
+                            <label for="currentPassword" class="col-sm-3 col-form-label">Current Password</label>
+                            <div class="col-sm-9">
+                              <input wire:model.defer="state.current_password" type="password" class="form-control @error('current_password') is-invalid @enderror" id="currentPassword" placeholder="Current Password">
+                              @error('current_password')
+                              <div class="invalid-feedback">
+                                {{$message}}
+                              </div>
+                              @enderror
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="newPassword" class="col-sm-3 col-form-label">New Password</label>
+                            <div class="col-sm-9">
+                              <input wire:model.defer="state.password" type="password" class="form-control @error('password') is-invalid @enderror" id="newPassword" placeholder="New Password">
+                              @error('password')
+                              <div class="invalid-feedback">
+                                {{$message}}
+                              </div>
+                              @enderror
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="confirmNewPassword" class="col-sm-3 col-form-label">Confirm New Password</label>
+                            <div class="col-sm-9">
+                              <input wire:model.defer="state.password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="confirmNewPassword" placeholder="Confirm New Password">
+                              @error('password_confirmation')
+                              <div class="invalid-feedback">
+                                {{$message}}
+                              </div>
+                              @enderror
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="offset-sm-3 col-sm-9">
+                              <x-button class="btn-success"> <i class="fa fa-save mr-1"></i> Save Change</x-button>
                             </div>
                           </div>
                         </form>
