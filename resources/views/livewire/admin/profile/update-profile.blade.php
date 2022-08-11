@@ -58,32 +58,33 @@
                 <div class="card-body">
                     <div class="tab-content">
                       <div class="tab-pane active" id="settings">
-                        <form class="form-horizontal">
+                        <form wire:submit.prevent="updateProfile" id="authUserUpdateProfile" class="form-horizontal">
                           <div class="form-group row">
                             <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                              <input type="email" class="form-control" id="inputName" placeholder="Name">
+                              <input wire:model.defer="state.name" type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Name">
+                              @error('name')
+                              <div class="invalid-feedback">
+                                {{$message}}
+                              </div>
+                              @enderror
                             </div>
                           </div>
                           <div class="form-group row">
                             <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
-                              <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                              <input wire:model.defer="state.email" type="text" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email">
+                              @error('email')
+                              <div class="invalid-feedback">
+                                {{$message}}
+                              </div>
+                              @enderror
                             </div>
                           </div>
-                          <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                              <x-inputs.select2 wire:model="state.profileSelect" id="profileSelect" placeholder="Profile Select">
-                                <option value="one">One</option>
-                                <option value="two">Two</option>
-                                <option value="three">Three</option>
-                              </x-inputs.select2>
-                            </div>
-                          </div>
+
                           <div class="form-group row">
                             <div class="offset-sm-2 col-sm-10">
-                              <x-button class="btn-danger">Submit</x-button>
+                              <x-button class="btn-success"> <i class="fa fa-save mr-1"></i> Submit</x-button>
                             </div>
                           </div>
                         </form>
@@ -114,4 +115,24 @@
             cursor: pointer;
         }
       </style>
+  @endpush
+
+  @push('js')
+    {{-- <script>
+      $(document).ready(function () {
+        $('#authUserUpdateProfile').submit(function (e) { 
+          e.preventDefault();
+          let name = $('#inputName').val();
+          $('#authUserName').text(name);
+        });
+      });
+    </script> --}}
+
+    <script>
+      $(document).ready(function () {
+        Livewire.on('nameChanged',(changeName) => {
+         $('[x-user="username"]').text(changeName);
+        })
+      });
+    </script>
   @endpush

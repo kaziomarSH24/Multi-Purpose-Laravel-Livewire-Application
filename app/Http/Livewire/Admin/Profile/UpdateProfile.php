@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin\Profile;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateProfile extends Component
 {
@@ -12,6 +13,12 @@ class UpdateProfile extends Component
 
     public $image;
     public $state = [];
+
+
+    public function mount()
+    {
+        $this->state = auth()->user()->only(['name','email']);
+    }
 
     public function updatedImage()
     {
@@ -23,6 +30,19 @@ class UpdateProfile extends Component
         }
 
         $this->dispatchBrowserEvent('updated',['message' => 'Profile image changed successfully!']);
+    }
+
+
+    public function updateProfile(UpdatesUserProfileInformation $updater)
+    {
+        $updater->update(auth()->user(), [
+            'name' => $this->state['name'],
+            'email' => $this->state['email'],
+        ]);
+
+        $this->emit('nameChanged', auth()->user()->name);
+
+        $this->dispatchBrowserEvent('updated',['message' => 'Profile updated Successfully!']);
     }
 
     public function render()
