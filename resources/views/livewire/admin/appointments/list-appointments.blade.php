@@ -86,6 +86,7 @@
                        <table class="table table-hover text-nowrap">
                          <thead>
                            <tr>
+                            <th></th>
                             <th>
                               <div class="icheck-primary d-inline ml-2">
                                 <input wire:model="selectPageRows" type="checkbox" value="" id="appointmentCheck1">
@@ -100,14 +101,15 @@
                              <th>Options</th>
                            </tr>
                          </thead>
-                         <tbody>
+                         <tbody wire:sortable="updateAppointmentOrder">
                             @php
                                  $i = 1;
                             @endphp
                           @forelse ($appointments as $appointment)
-                                                         
-                           <tr>
-                            <th style="width: 8px">
+                                                     
+                           <tr wire:sortable.item="{{ $appointment->id }}" wire:key="task-{{ $appointment->id }}">
+                            <td wire:sortable.handle style="width: 10px; cursor:move;"><i class="fa-regular fa-up-down-left-right"></i></td>  
+                            <th style="width: 8px; padding-left:13px;">
                               <div class="icheck-primary d-inline ml-2">
                                 <input wire:model="selectedRows" type="checkbox" value="{{$appointment->id}}" id="{{$appointment->id}}">
                                 <label for="{{$appointment->id}}"></label>
@@ -152,5 +154,15 @@
 </div>
  
  
- 
+ @push('styles')
+  <style>
+    .draggable-mirror{
+      background: white;
+      width: 950px;
+      display: flex;
+      justify-content: space-between;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+  </style>
+ @endpush
  

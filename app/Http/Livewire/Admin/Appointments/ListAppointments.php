@@ -82,7 +82,7 @@ class ListAppointments extends AdminComponent
                            ->whereHas('client',function(Builder $query){           //whereHas for join with clients table
                                $query->where('name','LIKE','%'.$this->searchAppointment.'%');
                            })
-                           ->latest()
+                           ->orderBy('order_position','asc')
                            ->paginate($this->productParPage);
     }
 
@@ -120,6 +120,17 @@ class ListAppointments extends AdminComponent
 
         return (new AppointmentsExport($this->selectedRows))->download('appointments.xls');
         $this->reset(['selectedRows','selectPageRows']);
+    }
+
+
+    /** Livewire Sort able. For this create another column into appointments table */ 
+    public function updateAppointmentOrder($items)
+    {
+        // dd($items);
+        foreach ($items as $item){
+            Appointment::find($item['value'])->update(['order_position' => $item['order']]);
+        }
+        $this->dispatchBrowserEvent('updated',['message' => 'Appointments sorted successfully!']);
     }
 
     public function render()
