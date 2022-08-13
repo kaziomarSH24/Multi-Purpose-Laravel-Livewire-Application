@@ -19,95 +19,90 @@
         </div>
       </div>
 
-      {{-- @if (session()->has('message'))
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong><i class="fa fa-check-circle mr1"></i> Success!</strong> {{session('message')}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      @endif --}}
-              <div class="row mt-4">
-                <div class="col-12">
-                    <div class="d-flex justify-content-end">
-                      <button wire:click.prevent="addNew" type="button" class="btn mb-2 bg-gradient-primary"><i class="fa fa-plus-circle mr-1"></i>Add New User</button>
-                    </div>
-                  <div class="card">
-                    <div class="card-header">
-                      <h3 class="card-title">Users List</h3>
-                      <div class="card-tools">
-                        <x-search-input wire:model="searchTerm" :target="'searchTerm'"/>
-                      </div>
-                    </div>
-                    
-                    <div class="card-body table-responsive p-0">
-                      <table class="table table-hover text-nowrap table-bordered">
-                        <thead>
-                          <tr>
-                            <th>ID</th>
-                            <th>Image</th>
-                            <th>
-                              Name
-                              <span wire:click="sortBy('name')" class="float-right text-sm" style="cursor: pointer;">
-                                <i class="fa fa-arrow-up {{$sortColmunName === 'name' && $sortDirection === 'asc' ? '' : 'text-muted'}}"></i>
-                                <i class="fa fa-arrow-down {{$sortColmunName === 'name' && $sortDirection === 'desc' ? '' : 'text-muted'}}"></i>
-                              </span>
-                            </th>
-                            <th>
-                              Email
-                              <span wire:click="sortBy('email')" class="float-right text-sm" style="cursor: pointer;">
-                                <i class="fa fa-arrow-up {{$sortColmunName === 'email' && $sortDirection === 'asc' ? '' : 'text-muted'}}"></i>
-                                <i class="fa fa-arrow-down {{$sortColmunName === 'email' && $sortDirection === 'desc' ? '' : 'text-muted'}}"></i>
-                              </span>
-                            </th>
-                            <th>Role</th>
-                            <th>Registerd Time</th>
-                            <th>Registerd Date</th>
-                            <th>Options</th>
-                          </tr>
-                        </thead>
-                        <tbody wire:loading.class="text-muted">
-                          @forelse ($users as $user)
-                          <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>
-                              {{-- <img src="{{ Storage::disk('avatars')->url($user->avatar) }}" alt="" style="width: 50px"> --}}
-                              <img src="{{ $user->avatar_url }}" alt="" style="width: 50px"> <!-- avatar_url() create in User.php model -->
-                            </td>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>
-                              <select class="form-control" wire:change="changeRole({{$user}},$event.target.value)">
-                                <option value="admin" {{($user->role === 'admin') ? 'selected' : ''}}>ADMIN</option>
-                                <option value="user" {{($user->role === 'user') ? 'selected' : ''}}>USER</option>
-                              </select>
-                            </td>
-                            <td>{{$user->created_at->toFormattedTime()}}</td> {{-- function created on AppServiceProvider.php --}}
-                            <td>{{$user->created_at->toFormattedDate()}}</td> {{-- function created on AppServiceProvider.php --}}
-                            <td>
-                                <a href="" wire:click.prevent="edit({{$user}})"><i class="fa fa-edit mr-2"></i></a>
-                                <a href="" wire:click.prevent="confirmUserRemoval({{$user->id}})"><i class="fa fa-trash text-danger"></i></a>
-                            </td>
-                          </tr>
-                          @empty
-                          <tr>
-                            <td colspan="7" class="text-center">
-                              <img src="{{asset('img')}}/icon/undraw_void_-3-ggu.svg" alt="No result found" width="100px">
-                              <h3 class="mt-2">No result found</h3>
-                            </td>
-                          </tr>
-                          @endforelse
-                        </tbody>
-                      </table>
-                    </div>
-                   <div class="card-footer d-flex justify-content-end">
-                    {{$users->links()}}
-                   </div>
-                  </div>
-                  
+        <div class="row mt-4">
+          <div class="col-12">
+              <div class="d-flex justify-content-end">
+                <button wire:click.prevent="addNew" type="button" class="btn mb-2 bg-gradient-primary"><i class="fa fa-plus-circle mr-1"></i>Add New User</button>
+              </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Users List</h3>
+                <div class="card-tools">
+                  <x-search-input wire:model="searchTerm" :target="'searchTerm'"/>
                 </div>
               </div>
               
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap table-bordered">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Image</th>
+                      <th>
+                        Name
+                        <span wire:click="sortBy('name')" class="float-right text-sm" style="cursor: pointer;">
+                          <i class="fa fa-arrow-up {{$sortColmunName === 'name' && $sortDirection === 'asc' ? '' : 'text-muted'}}"></i>
+                          <i class="fa fa-arrow-down {{$sortColmunName === 'name' && $sortDirection === 'desc' ? '' : 'text-muted'}}"></i>
+                        </span>
+                      </th>
+                      <th>
+                        Email
+                        <span wire:click="sortBy('email')" class="float-right text-sm" style="cursor: pointer;">
+                          <i class="fa fa-arrow-up {{$sortColmunName === 'email' && $sortDirection === 'asc' ? '' : 'text-muted'}}"></i>
+                          <i class="fa fa-arrow-down {{$sortColmunName === 'email' && $sortDirection === 'desc' ? '' : 'text-muted'}}"></i>
+                        </span>
+                      </th>
+                      <th>Role</th>
+                      <th>Registerd Time</th>
+                      <th>Registerd Date</th>
+                      <th>Options</th>
+                    </tr>
+                  </thead>
+                  <tbody wire:loading.class="text-muted">
+                    @forelse ($users as $index => $user)
+
+                    {{-- @dump($users->firstItem())
+                    @dump($index) --}}
+                    <tr>
+                      <td>{{$users->firstItem() + $index}}</td>
+                      <td>
+                        {{-- <img src="{{ Storage::disk('avatars')->url($user->avatar) }}" alt="" style="width: 50px"> --}}
+                        <img src="{{ $user->avatar_url }}" alt="" style="width: 50px"> <!-- avatar_url() create in User.php model -->
+                      </td>
+                      <td>{{$user->name}}</td>
+                      <td>{{$user->email}}</td>
+                      <td>
+                        <select class="form-control" wire:change="changeRole({{$user}},$event.target.value)">
+                          <option value="admin" {{($user->role === 'admin') ? 'selected' : ''}}>ADMIN</option>
+                          <option value="user" {{($user->role === 'user') ? 'selected' : ''}}>USER</option>
+                        </select>
+                      </td>
+                      <td>{{$user->created_at->toFormattedTime()}}</td> {{-- function created on AppServiceProvider.php --}}
+                      <td>{{$user->created_at->toFormattedDate()}}</td> {{-- function created on AppServiceProvider.php --}}
+                      <td>
+                          <a href="" wire:click.prevent="edit({{$user}})"><i class="fa fa-edit mr-2"></i></a>
+                          <a href="" wire:click.prevent="confirmUserRemoval({{$user->id}})"><i class="fa fa-trash text-danger"></i></a>
+                      </td>
+                    </tr>
+                    @empty
+                    <tr>
+                      <td colspan="8" class="text-center">
+                        <img src="{{asset('img')}}/icon/undraw_void_-3-ggu.svg" alt="No result found" width="100px">
+                        <h3 class="mt-2">No result found</h3>
+                      </td>
+                    </tr>
+                    @endforelse
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer d-flex justify-content-end">
+              {{$users->links()}}
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
     </div> 
   </div>
 

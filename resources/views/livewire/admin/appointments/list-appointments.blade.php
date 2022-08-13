@@ -102,10 +102,7 @@
                            </tr>
                          </thead>
                          <tbody wire:sortable="updateAppointmentOrder">
-                            @php
-                                 $i = 1;
-                            @endphp
-                          @forelse ($appointments as $appointment)
+                          @forelse ($appointments as $index => $appointment)
                                                      
                            <tr wire:sortable.item="{{ $appointment->id }}" wire:key="task-{{ $appointment->id }}">
                             <td wire:sortable.handle style="width: 10px; cursor:move;"><i class="fa-regular fa-up-down-left-right"></i></td>  
@@ -115,7 +112,7 @@
                                 <label for="{{$appointment->id}}"></label>
                               </div>
                             </th>
-                            <td>{{$i++}}</td>
+                            <td>{{$appointments->firstItem() + $index}}</td>
                             <td>{{$appointment->client->name}}</td>
                             <td>{{$appointment->date}}</td> {{-- function created on AppServiceProvider.php --}}
                             <td>{{$appointment->time}}</td>  {{-- function created on AppServiceProvider.php --}}
