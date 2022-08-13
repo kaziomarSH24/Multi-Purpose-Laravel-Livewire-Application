@@ -24,6 +24,8 @@ class ListUsers extends AdminComponent
     public $userIdBeingRemoved = null; //for delete user
 
     public $searchTerm = null;
+    
+    protected $queryString = ['searchTerm' => ['except' => '']];
 
     public $photo;
 
@@ -152,6 +154,12 @@ class ListUsers extends AdminComponent
     public function swapSortDirection()
     {
       return $this->sortDirection === 'asc' ? 'desc' : 'asc';
+    }
+
+
+    public function updatedSearchTerm()
+    {
+        $this->resetPage();
     }
 
     public function render()
