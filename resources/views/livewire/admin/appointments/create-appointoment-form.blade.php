@@ -197,6 +197,5 @@
         </div>
     </div>
 </div>
-
-
 @include('livewire/admin/appointments/appointments-js')
+@include('livewire/admin/appointments/appointments-css')

@@ -1,0 +1,14 @@
+/* <!-- Google Font: Source Sans Pro --> */
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback");
+/* <!-- Font Awesome 6 pro Icons --> */
+@import url('https://site-assets.fontawesome.com/releases/v6.1.1/css/all.css');
+/* <!-- Font Awesome Icons --> */
+@import 'admin-lte/plugins/fontawesome-free/css/all.min.css';
+/* <!--IonIcons --> */
+@import url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+/* <!-- Theme style --> */
+@import 'admin-lte/dist/css/adminlte.min.css';
+/* <!-- Toastr Plugin --> */
+@import 'admin-lte/plugins/toastr/toastr.min.css';
+/* <!-- iCheck --> */
+@import 'admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css'
