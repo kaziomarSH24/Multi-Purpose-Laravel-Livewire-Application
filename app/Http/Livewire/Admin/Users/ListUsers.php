@@ -27,6 +27,13 @@ class ListUsers extends AdminComponent
 
     public $photo;
 
+    public $sortColmunName = 'created_at';
+    public $sortDirection = 'desc';
+
+
+
+
+
     public function changeRole(User $user, $role)
     {
         Validator::make(['role' => $role],[
@@ -85,6 +92,8 @@ class ListUsers extends AdminComponent
         $this->state = $user->toArray();
     }
 
+
+
     public function updateUser()
     {
         $validatedData = Validator::make($this->state, [
@@ -111,6 +120,8 @@ class ListUsers extends AdminComponent
         $this->dispatchBrowserEvent('hide-form',['message' => 'User updated successfully!']); // "Message" argument for toastr notifacation alert
     }
 
+
+
     public function confirmUserRemoval($userID)
     {
         $this->userIdBeingRemoved = $userID;
@@ -125,13 +136,31 @@ class ListUsers extends AdminComponent
         $this->dispatchBrowserEvent('hide-delete-modal',['message' => 'User deleted successfully']);
     }
 
+
+    public function sortBy($columnName)
+    {
+        if($this->sortColmunName === $columnName){
+            $this->sortDirection =  $this->swapSortDirection();
+        }else{
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortColmunName = $columnName;
+
+    }
+
+    public function swapSortDirection()
+    {
+      return $this->sortDirection === 'asc' ? 'desc' : 'asc';
+    }
+
     public function render()
     {
         // dd($this->searchTerm);
         $users = User::query()
                 ->where('name','LIKE','%'.$this->searchTerm.'%')
                 ->orWhere('email','LIKE','%'.$this->searchTerm.'%')
-                ->latest()
+                ->orderBy($this->sortColmunName, $this->sortDirection)
                 ->paginate(5);
         return view('livewire.admin.users.list-users',compact('users'));
     }

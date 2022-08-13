@@ -41,13 +41,25 @@
                     </div>
                     
                     <div class="card-body table-responsive p-0">
-                      <table class="table table-hover text-nowrap">
+                      <table class="table table-hover text-nowrap table-bordered">
                         <thead>
                           <tr>
                             <th>ID</th>
                             <th>Image</th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th>
+                              Name
+                              <span wire:click="sortBy('name')" class="float-right text-sm" style="cursor: pointer;">
+                                <i class="fa fa-arrow-up {{$sortColmunName === 'name' && $sortDirection === 'asc' ? '' : 'text-muted'}}"></i>
+                                <i class="fa fa-arrow-down {{$sortColmunName === 'name' && $sortDirection === 'desc' ? '' : 'text-muted'}}"></i>
+                              </span>
+                            </th>
+                            <th>
+                              Email
+                              <span wire:click="sortBy('email')" class="float-right text-sm" style="cursor: pointer;">
+                                <i class="fa fa-arrow-up {{$sortColmunName === 'email' && $sortDirection === 'asc' ? '' : 'text-muted'}}"></i>
+                                <i class="fa fa-arrow-down {{$sortColmunName === 'email' && $sortDirection === 'desc' ? '' : 'text-muted'}}"></i>
+                              </span>
+                            </th>
                             <th>Role</th>
                             <th>Registerd Time</th>
                             <th>Registerd Date</th>
