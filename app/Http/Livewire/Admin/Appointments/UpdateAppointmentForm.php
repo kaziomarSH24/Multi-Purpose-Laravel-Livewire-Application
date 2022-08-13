@@ -16,10 +16,11 @@ class UpdateAppointmentForm extends Component
 
     public function mount(Appointment $appointment)
     {
-        
+        // dd($appointment);
         $this->state = $appointment->toArray();
 
         $this->appointment = $appointment;
+
         
     }
 
@@ -28,7 +29,7 @@ class UpdateAppointmentForm extends Component
         Validator::make($this->state,[
 
             'client_id' => 'required',
-            'members' => 'nullable',
+            'members' => 'required',
             'date' => 'required',
             'time' => 'required',
             'note' => 'nullable',

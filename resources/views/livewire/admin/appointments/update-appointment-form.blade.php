@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <form action="#" autocomplete="off" wire:submit.prevent="updateAppointment">
+                        <form action="#" id="submitAppointment" autocomplete="off" wire:submit.prevent="updateAppointment">
                             <div class="card-header">
                             <h3 class="card-title">Update Appointment</h3>
                             </div>
@@ -45,18 +45,28 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div wire:ignore class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Select Team Members</label>
-                                        <select  wire:model="state.members" class="select2 team_members"  multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                                          <option>Alabama</option>
-                                          <option>Alaska</option>
-                                          <option>California</option>
-                                          <option>Delaware</option>
-                                          <option>Tennessee</option>
-                                          <option>Texas</option>
-                                          <option>Washington</option>
-                                        </select>
+                                        <div class="@error('members') is-invalid custom-error @enderror"> <!--Solving Bootstrap error message in select2 -->
+                                            <x-inputs.select2 wire:model="state.members" id="teamMembers" placeholder="Select Members">
+                                                @foreach ($state['members'] as $item)
+                                                    <option selected>{{$item}}</option>
+                                                @endforeach
+                                                <option>Alabama</option>
+                                                <option>Alaska</option>
+                                                <option>California</option>
+                                                <option>Delaware</option>
+                                                <option>Tennessee</option>
+                                                <option>Texas</option>
+                                                <option>Washington</option>
+                                            </x-inputs.select2>
+                                        </div>
+                                        @error('members')
+                                            <div class="invalid-feedback">
+                                                {{$message}}
+                                            </div>
+                                        @enderror
                                       </div>
                                       <!-- /.form-group -->
                                 </div>
@@ -146,7 +156,7 @@
                         </div>
                         <div class="card-footer">
                             <button type="button" class="btn btn-secondary"><i class="fa fa-times mr-1"></i>Close</button>
-                            <x-button id="submitAppointment"><i wire:loading.remove class="fa fa-save mr-1"></i>Save Changes</x-button>
+                            <x-button id="submitAppointmentBtn"><i wire:loading.remove class="fa fa-save mr-1"></i>Save Changes</x-button>
                         </div>
                         </form>
                     </div>
@@ -156,56 +166,4 @@
     </div>
 </div>
 
-@push('js')
-<script>
-    $(document).ready(function () {
-        
-     //   <---- This is old mathod ---->
-
-    //   let _date = $('#appointmentDate');
-    //   let _time = $('#appointmentTime');
-    //   _date.datetimepicker({
-    //     format: 'L'
-    //   });
-    //   _time.datetimepicker({
-    //     format: 'LT'
-    //   });
-    //   _date.on("change.datetimepicker",function(e){
-    //     let _appointmentDate = _date.children('input').val();
-    //    eval(@this).set('state.date',_appointmentDate);
-    //   });
-    //   _time.on('change.datetimepicker',function(e){
-    //     let _appointmentTime = _time.children('input').val();
-    //     eval(@this).set('state.time',_appointmentTime);
-    //   });
-
-    //  <---- This is old mathod ---->
-
-
-
-      ClassicEditor
-          .create( document.querySelector( '#note' ) )
-          .then( editor => {
-        //     editor.model.document.on('change:data', () => {    // =====This approach send lot of request in server. That's why we ignore it ======
-        //    @this.set('state.note', editor.getData());
-        //   }); 
-              
-            document.querySelector('#submitAppointment').addEventListener('click', () => {  //====== This  mathod Send only one request in server ====
-                @this.set('state.note', editor.getData());
-            })
-            
-          })
-          .catch( error => {
-                  console.error( error );
-          } );
-
-          //Initialize Select2 Elements
-        $('.select2').select2({
-            theme: 'bootstrap4'
-        }).on('change', function (){
-            // alert('here');
-            @this.set('state.members',$(this).val());
-        });
-    });
-  </script>
-@endpush
+ @include('livewire/admin/appointments/appointments-js')
