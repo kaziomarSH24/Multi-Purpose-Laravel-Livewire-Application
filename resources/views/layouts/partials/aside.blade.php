@@ -61,6 +61,15 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{route('admin.messages')}}" class="nav-link {{request()->is('admin/messages') ? 'active' : ''}}">
+              <i class="nav-icon fa-light fa-messages"></i>
+              <p>
+                Messages
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a x-ref="editProfileLink" href="{{route('admin.profile.edit')}}" class="nav-link {{request()->is('admin/profile') ? 'active' : ''}}">
               <i class="nav-icon fa-light fa-user"></i>
               <p>
